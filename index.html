@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Daily Companion / Compagnon Quotidien</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F9F6F0;--surface:#FCFAF8;--surface-alt:#F0EBE1;
+  --primary:#8A9A86;--primary-h:#788874;--secondary:#C87961;
+  --text:#2C3329;--muted:#5C6656;--border:#E5E0D8;
+  --card-shadow:0 2px 12px -4px rgba(44,51,41,.08);
+}
+.dark{
+  --bg:#1C1F1A;--surface:#242821;--surface-alt:#2C3028;
+  --primary:#8A9A86;--primary-h:#9EAE9A;--secondary:#D4896A;
+  --text:#E8E4DC;--muted:#9AA090;--border:#3A3F36;
+  --card-shadow:0 2px 16px -4px rgba(0,0,0,.35);
+}
+body{font-family:'Outfit',-apple-system,sans-serif;background:var(--bg);color:var(--text);font-weight:300;font-size:15px;min-height:100vh;transition:background .4s,color .4s}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.overline{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--muted)}
+
+/* Layout */
+.wrapper{max-width:1140px;margin:0 auto;padding:0 18px 60px}
+.row{display:grid;gap:13px;margin-bottom:13px}
+.r-wa{grid-template-columns:5fr 7fr}
+.r-am{grid-template-columns:7fr 5fr}
+.r-bot{grid-template-columns:5fr 4fr 3fr}
+.r-links{grid-template-columns:1fr}
+.r-charts{grid-template-columns:1fr 1fr}
+@media(max-width:760px){.r-wa,.r-am,.r-bot,.r-charts{grid-template-columns:1fr}}
+
+/* Header */
+header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(249,246,240,.85);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s}
+.dark header{background:rgba(28,31,26,.88)}
+.hi{max-width:1140px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;border-radius:50%;background:rgba(138,154,134,.18);display:flex;align-items:center;justify-content:center;font-size:15px}
+.logo-title{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--text)}
+.logo-tag{font-size:9px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+.hdr-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}
+.pb{border:none;border-radius:999px;padding:4px 13px;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted)}
+.pb.on{background:var(--primary);color:#fff}
+.dark-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.dark-btn:hover{border-color:var(--primary)}
+.sync-btn{padding:4px 11px;font-size:11px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.sync-btn:hover{border-color:var(--primary);color:var(--text)}
+.sync-badge{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--secondary);margin-right:4px;vertical-align:middle}
+
+/* Card */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:13px;box-shadow:var(--card-shadow);transition:transform .3s,box-shadow .3s,background .4s,border-color .4s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px -12px rgba(44,51,41,.13)}
+.dark .card:hover{box-shadow:0 8px 28px -10px rgba(0,0,0,.45)}
+.ch{display:flex;justify-content:space-between;align-items:flex-start}
+.ci{font-size:19px;opacity:.75}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:999px;padding:7px 16px;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;font-weight:400}
+.bp{background:var(--primary);color:#fff}.bp:hover{background:var(--primary-h)}.bp:disabled{opacity:.4;cursor:not-allowed}
+.bs{background:transparent;border:1px solid var(--border);color:var(--text)}.bs:hover{border-color:var(--primary)}
+.bsm{padding:5px 11px;font-size:12px}
+.ib{background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;transition:color .2s;padding:2px}.ib:hover{color:var(--secondary)}
+
+/* Input */
+.il{background:transparent;border:none;border-bottom:1px solid var(--border);padding:6px 0;outline:none;width:100%;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);transition:border-color .25s}
+.il:focus{border-bottom-color:var(--primary)}.il::placeholder{color:var(--muted);opacity:.7}
+
+/* Chips */
+.chip{border:1px solid var(--border);border-radius:999px;padding:4px 11px;font-size:11px;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif}
+.chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.chip:hover:not(.on){border-color:var(--primary);color:var(--text)}
+
+/* Hero */
+.hero{padding:26px 0 16px}
+.hero-g{font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--text);margin-top:6px;line-height:1.1}
+@media(max-width:500px){.hero-g{font-size:28px}}
+
+/* Weather */
+.w-search{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.sc-row{display:flex;flex-wrap:wrap;gap:6px}
+.cc{border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:11px;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted);display:inline-flex;align-items:center;gap:4px;font-family:'Outfit',sans-serif}
+.cc:hover{border-color:var(--primary);color:var(--text)}
+.cc.def{border-color:var(--primary);color:var(--primary);background:rgba(138,154,134,.1)}
+.cc .rm{font-size:10px;background:none;border:none;cursor:pointer;color:inherit;padding:0;opacity:.6;transition:opacity .2s}.cc .rm:hover{opacity:1;color:var(--secondary)}
+.w-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center;font-size:11px;padding-top:9px;margin-top:7px;border-top:1px solid var(--border)}
+.wsl{color:var(--muted);margin-bottom:2px}.wsv{color:var(--text);font-weight:500}
+
+/* Grocery */
+.ga-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.gl{list-style:none;display:flex;flex-direction:column;gap:4px;max-height:195px;overflow-y:auto}
+.gi{display:flex;align-items:center;gap:8px;padding:3px 0}
+.gt{flex:1;font-size:13px;transition:all .2s}.gt.done{text-decoration:line-through;color:var(--muted);opacity:.55}
+.ck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;background:transparent;font-size:11px;color:transparent}
+.ck.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.gf{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:7px}
+
+/* Appt */
+.aa{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.al{list-style:none;padding-left:17px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:2px;min-height:38px}
+.ai{position:relative;padding:5px 0;display:flex;align-items:center;gap:8px}
+.ad{position:absolute;left:-21px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px var(--surface)}
+.at{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--secondary)}
+
+/* Meditation */
+.mc{display:flex;flex-direction:column;align-items:center;gap:13px}
+.mrw{position:relative;width:144px;height:144px;display:flex;align-items:center;justify-content:center}
+.mro,.mri{position:absolute;border-radius:50%;transition:transform 4s ease-in-out}
+.mro{inset:0;background:rgba(138,154,134,.13)}
+.mri{inset:15px;background:rgba(138,154,134,.22)}
+.mcore{position:relative;z-index:2;text-align:center}
+.mti{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--text)}
+.mph{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.dc{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+.mb{display:flex;gap:8px}
+
+/* Water */
+.wcr{display:flex;align-items:baseline;gap:6px}
+.wd{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.db{aspect-ratio:1;border-radius:10px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s}
+.db.on{background:rgba(138,154,134,.18);border-color:var(--primary)}
+.wf{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:7px}
+
+/* Charts */
+.chart-wrap{display:flex;flex-direction:column;gap:6px}
+.chart-bars{display:flex;align-items:flex-end;gap:5px;height:72px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.bar{width:100%;border-radius:4px 4px 0 0;background:var(--primary);opacity:.75;transition:height .5s ease,opacity .3s;min-height:2px}
+.bar.today{opacity:1;background:var(--secondary)}
+.bar-lbl{font-size:9px;color:var(--muted);letter-spacing:.05em}
+.bar-val{font-size:9px;color:var(--muted)}
+
+/* Links */
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.link-card{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--surface);text-decoration:none;color:var(--text);transition:all .25s;font-size:13px}
+.link-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--card-shadow)}
+.link-icon{font-size:20px;flex-shrink:0;width:34px;height:34px;border-radius:10px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center}
+.link-label{font-size:12px;font-weight:400;line-height:1.3}
+.link-sub{font-size:10px;color:var(--muted);margin-top:1px}
+
+/* Blockquote */
+bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;color:var(--text)}
+.pr{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--secondary);margin-top:3px}
+
+/* Sync modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border-radius:20px;padding:28px;max-width:420px;width:90%;display:flex;flex-direction:column;gap:16px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--text)}
+.modal p{font-size:13px;color:var(--muted);line-height:1.6}
+.code-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:monospace;font-size:13px;word-break:break-all;color:var(--text);max-height:120px;overflow-y:auto}
+.modal-btns{display:flex;gap:8px;flex-wrap:wrap}
+.modal input.il{font-size:13px}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:999px;font-size:13px;z-index:200;transition:transform .3s ease;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+*:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
+.footer{text-align:center;font-size:10px;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-top:38px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .6s ease both}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+<div class="hi">
+  <div class="logo-wrap">
+    <div class="logo-icon">🌿</div>
+    <div>
+      <div class="logo-title serif" id="app-title">Daily Companion</div>
+      <div class="logo-tag" id="app-tagline">Small rituals, gentle days</div>
+    </div>
+  </div>
+  <div class="hdr-controls">
+    <button class="sync-btn" onclick="openSync()" title="Sync / Export" id="sync-btn-lbl">
+      <span class="sync-badge" id="sync-dot" style="display:none"></span>☁ Sync
+    </button>
+    <button class="dark-btn" id="theme-btn" onclick="toggleThemeManual()" title="Toggle dark mode">🌙</button>
+    <div class="pill">
+      <button class="pb on" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="pb" id="btn-fr" onclick="setLang('fr')">FR</button>
+    </div>
+  </div>
+</div>
+</header>
+
+<!-- MAIN -->
+<div class="wrapper">
+
+<!-- HERO -->
+<div class="hero fu">
+  <div class="overline" id="hero-date"></div>
+  <div class="hero-g serif" id="hero-greeting"></div>
+</div>
+
+<!-- ROW 1: Weather + Affirmation -->
+<div class="row r-wa fu" style="animation-delay:.05s">
+  <div class="card" id="weather-card">
+    <div class="ch"><span class="overline" id="lbl-weather">Weather</span><span style="font-size:11px;color:var(--muted)" id="lbl-today">Today</span></div>
+    <div class="w-search">
+      <input class="il" id="city-input" placeholder="Search city…" style="flex:1;min-width:110px" onkeydown="if(event.key==='Enter')fetchWeatherByCity()"/>
+      <button class="btn bp bsm" onclick="fetchWeatherByCity()">🔍 <span id="lbl-search">Search</span></button>
+    </div>
+    <div id="saved-cities-row" class="sc-row"></div>
+    <div id="weather-display"><div style="font-size:12px;color:var(--muted);font-style:italic" id="weather-status">Detecting your location…</div></div>
+  </div>
+  <div class="card" style="background:linear-gradient(135deg,var(--surface),var(--surface-alt))">
+    <div class="ch"><span class="overline" id="lbl-affirm-over">A thought to carry</span><span class="ci">❝</span></div>
+    <div class="serif" style="font-size:15px;color:var(--muted)" id="lbl-affirm-title">Affirmation of the day</div>
+    <blockquote class="dq" style="font-size:23px" id="affirm-text"></blockquote>
+  </div>
+</div>
+
+<!-- ROW 2: Appointments + Meditation -->
+<div class="row r-am fu" style="animation-delay:.10s">
+  <div class="card">
+    <div class="ch">
+      <div><span class="overline" id="lbl-appt-over">Today's flow</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-appt-title">Appointments</div></div>
+      <span class="ci">📅</span>
+    </div>
+    <div class="aa">
+      <input type="time" id="appt-time" class="il" style="width:105px"/>
+      <input class="il" id="appt-text" placeholder="What's on your schedule?" style="flex:1;min-width:140px" onkeydown="if(event.key==='Enter')addAppt()"/>
+      <button class="btn bp bsm" onclick="addAppt()">+ <span id="lbl-add-appt">Add</span></button>
+    </div>
+    <ul class="al" id="appt-list"></ul>
+  </div>
+  <div class="card">
+    <div class="ch">
+      <div><span class="overline" id="lbl-med-over">Stillness</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-med-title">Meditation</div></div>
+      <span class="ci" style="color:var(--secondary)">✦</span>
+    </div>
+    <div class="mc">
+      <div class="mrw">
+        <div class="mro" id="mro"></div>
+        <div class="mri" id="mri"></div>
+        <div class="mcore">
+          <div class="mti" id="med-timer">05:00</div>
+          <div class="mph" id="med-phase">Duration</div>
+        </div>
+      </div>
+      <div class="dc" id="dur-chips"></div>
+      <div class="mb">
+        <button class="btn bp bsm" id="med-start-btn" onclick="medStart()">▶ <span id="lbl-begin">Begin</span></button>
+        <button class="btn bs bsm" onclick="medReset()">↺ <span id="lbl-med-reset">Reset</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3: Grocery + Water + Psalm -->
+<div class="row r-bot fu" style="animation-delay:.15s">
+  <div class="card">
+    <div class="ch">
+      <div><span class="overline" id="lbl-groc-over">Pantry</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-groc-title">Grocery list</div></div>
+      <span class="ci">🧺</span>
+    </div>
+    <div class="ga-row">
+      <input class="il" id="groc-input" placeholder="Add to list…" style="flex:1;border-bottom:none" onkeydown="if(event.key==='Enter')addGrocery()"/>
+      <button class="btn bp bsm" onclick="addGrocery()" style="padding:5px 10px">+</button>
+    </div>
+    <ul class="gl" id="groc-list"></ul>
+    <div class="gf" id="groc-footer"></div>
+  </div>
+  <div class="card">
+    <div class="ch">
+      <div><span class="overline" id="lbl-water-over">Hydration</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-water-title">Water intake</div></div>
+      <span class="ci">💧</span>
+    </div>
+    <div class="wcr">
+      <span class="serif" style="font-size:44px;line-height:1" id="water-count">0</span>
+      <span class="serif" style="font-size:21px;color:var(--muted)">/ 8</span>
+      <span style="font-size:12px;color:var(--muted)" id="lbl-glasses">glasses</span>
+    </div>
+    <div class="wd" id="water-drops"></div>
+    <div class="wf">
+      <span id="water-goal-lbl">Daily goal: 8 glasses</span>
+      <button class="ib" onclick="resetWater()" style="font-size:11px">↺ <span id="lbl-w-reset">Reset</span></button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="overline" id="lbl-psalm-over">Daily verse</span><span class="ci" style="color:var(--secondary)">📖</span></div>
+    <div class="serif" style="font-size:15px;color:var(--muted)" id="lbl-psalm-title">Psalm of the day</div>
+    <blockquote class="dq" style="font-size:17px;flex:1" id="psalm-text"></blockquote>
+    <div class="pr" id="psalm-ref"></div>
+  </div>
+</div>
+
+<!-- ROW 4: Charts -->
+<div class="row r-charts fu" style="animation-delay:.20s">
+  <div class="card">
+    <div class="ch"><span class="overline" id="lbl-water-chart">Water — 7 days</span><span class="ci">📊</span></div>
+    <div class="chart-bars" id="water-chart"></div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="overline" id="lbl-med-chart">Meditation — 7 days</span><span class="ci">🧘</span></div>
+    <div class="chart-bars" id="med-chart"></div>
+  </div>
+</div>
+
+<!-- ROW 5: Links -->
+<div class="row r-links fu" style="animation-delay:.25s">
+  <div class="card">
+    <div class="ch"><span class="overline" id="lbl-links-title">My Pages</span><span class="ci">🔗</span></div>
+    <div class="links-grid" id="links-grid"></div>
+  </div>
+</div>
+
+<div class="footer">· · ·</div>
+</div><!-- /wrapper -->
+
+<!-- SYNC MODAL -->
+<div class="modal-bg" id="sync-modal">
+<div class="modal">
+  <h3 id="sync-modal-title" class="serif">Sync / Export</h3>
+  <p id="sync-modal-desc">Copy this code to share your data to another device, or paste a code from another device.</p>
+
+  <!-- Code block -->
+  <div class="code-box" id="sync-export-code" style="cursor:pointer" onclick="copyCode()" title="Click to copy"></div>
+
+  <!-- URL share section -->
+  <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:8px">
+    <p id="sync-link-desc" style="font-size:12px;color:var(--muted);line-height:1.5"></p>
+    <div style="display:flex;gap:6px;align-items:center">
+      <div class="code-box" id="sync-link-box" style="flex:1;font-size:11px;max-height:44px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer" onclick="copyLink()" title="Click to copy link"></div>
+      <button class="btn bp bsm" onclick="copyLink()" id="btn-share-link" style="flex-shrink:0">🔗 Copy link</button>
+    </div>
+  </div>
+
+  <!-- Import -->
+  <div style="border-top:1px solid var(--border);padding-top:12px">
+    <input class="il" id="sync-import-input" placeholder="Paste sync code here…" style="font-size:12px"/>
+  </div>
+
+  <div class="modal-btns">
+    <button class="btn bp bsm" onclick="copyCode()" id="btn-copy">📋 Copy</button>
+    <button class="btn bp bsm" onclick="importCode()" id="btn-import" style="background:var(--secondary)">📥 Import</button>
+    <button class="btn bs bsm" onclick="closeSync()" id="btn-close-sync">✕ Close</button>
+  </div>
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================== TRANSLATIONS ===================== */
+const T={
+en:{
+  appTitle:"Daily Companion",tagline:"Small rituals, gentle days",
+  weather:"Weather",today:"Today",search:"Search",
+  locating:"Detecting your location…",denied:"Location access denied",weatherErr:"Couldn't load weather",
+  feels:"Feels like",humidity:"Humidity",wind:"Wind",
+  defaultCity:"Set default",removeCity:"Remove",
+  apptOver:"Today's flow",apptTitle:"Appointments",addAppt:"Add",
+  apptPH:"What's on your schedule?",apptEmpty:"No appointments. A spacious day awaits.",
+  affirmOver:"A thought to carry",affirmTitle:"Affirmation of the day",
+  grocOver:"Pantry",grocTitle:"Grocery list",grocPH:"Add to list…",
+  items:"items",clearDone:"Clear done",
+  medOver:"Stillness",medTitle:"Meditation",begin:"Begin",pause:"Pause",
+  reset:"Reset",breatheIn:"Breathe in",breatheOut:"Breathe out",
+  medDone:"Complete ✓",duration:"Duration",
+  waterOver:"Hydration",waterTitle:"Water intake",glasses:"glasses",
+  goal:"Daily goal",wReset:"Reset",waterDone:"Hydrated 🌿",
+  psalmOver:"Daily verse",psalmTitle:"Psalm of the day",
+  morning:"Good morning",afternoon:"Good afternoon",evening:"Good evening",night:"Peaceful night",
+  waterChart:"Water — 7 days",medChart:"Meditation — 7 days",
+  myPages:"My Pages",
+  syncTitle:"Sync / Export",syncDesc:"Copy this code to import your data on another device. Paste a code from another device to import.",
+  btnCopy:"📋 Copy",btnImport:"📥 Import",btnClose:"✕ Close",
+  copied:"Copied to clipboard!",imported:"Data imported ✓",importErr:"Invalid sync code.",
+  syncBtn:"☁ Sync",
+  btnShareLink:"🔗 Copy link",linkCopied:"Shareable link copied! Send it to any device.",
+  syncLinkDesc:"Or share as a link — open it on another device to import automatically.",
+},
+fr:{
+  appTitle:"Compagnon Quotidien",tagline:"Petits rituels, journées douces",
+  weather:"Météo",today:"Aujourd'hui",search:"Chercher",
+  locating:"Localisation…",denied:"Accès à la position refusé",weatherErr:"Météo indisponible",
+  feels:"Ressenti",humidity:"Humidité",wind:"Vent",
+  defaultCity:"Par défaut",removeCity:"Retirer",
+  apptOver:"Le fil du jour",apptTitle:"Rendez-vous",addAppt:"Ajouter",
+  apptPH:"Qu'avez-vous de prévu ?",apptEmpty:"Aucun rendez-vous. Une journée toute douce.",
+  affirmOver:"Une pensée à emporter",affirmTitle:"Affirmation du jour",
+  grocOver:"Garde-manger",grocTitle:"Liste de courses",grocPH:"Ajouter à la liste…",
+  items:"articles",clearDone:"Effacer terminés",
+  medOver:"Quiétude",medTitle:"Méditation",begin:"Commencer",pause:"Pause",
+  reset:"Réinitialiser",breatheIn:"Inspirez",breatheOut:"Expirez",
+  medDone:"Terminé ✓",duration:"Durée",
+  waterOver:"Eau du jour",waterTitle:"Hydratation",glasses:"verres",
+  goal:"Objectif",wReset:"Réinitialiser",waterDone:"Bien hydraté 🌿",
+  psalmOver:"Verset quotidien",psalmTitle:"Psaume du jour",
+  morning:"Bonjour",afternoon:"Bon après-midi",evening:"Bonsoir",night:"Nuit paisible",
+  waterChart:"Eau — 7 jours",medChart:"Méditation — 7 jours",
+  myPages:"Mes pages",
+  syncTitle:"Synchronisation",syncDesc:"Copiez ce code pour importer vos données sur un autre appareil. Collez un code provenant d'un autre appareil pour importer.",
+  btnCopy:"📋 Copier",btnImport:"📥 Importer",btnClose:"✕ Fermer",
+  copied:"Copié dans le presse-papiers !",imported:"Données importées ✓",importErr:"Code invalide.",
+  syncBtn:"☁ Sync",
+  btnShareLink:"🔗 Copier le lien",linkCopied:"Lien copiable copié ! Ouvrez-le sur un autre appareil.",
+  syncLinkDesc:"Ou partagez comme lien — ouvrez-le sur un autre appareil pour importer automatiquement.",
+}};
+
+/* ===================== DAILY CONTENT ===================== */
+const AFFIRMATIONS={
+en:["I am exactly where I need to be today.","My energy is calm, focused, and abundant.","Every breath returns me to the present moment.","I welcome this day with an open heart.","Small steps today shape a beautiful tomorrow.","Peace begins the moment I choose it.","I am worthy of rest, joy, and slow mornings.","I release what I cannot control.","Joy lives in the smallest details.","Today I choose curiosity over fear.","Gratitude turns ordinary days into gifts.","I trust the goodness inside me.","Today is allowed to be soft.","I am the gardener of my own peace.","My worth is not measured in productivity.","I carry quiet light wherever I go.","My intuition is a trusted compass.","Slow is also a form of progress.","I make space for what truly matters.","Today, kindness is my first language.","My breath is a doorway home.","Hope is a quiet, patient muscle.","I notice the light, even on grey days.","I honor my needs without apology.","I trust the unfolding of my own path.","I am rooted, like a tree in a quiet field.","I deserve mornings that feel like prayer.","My presence is a quiet kind of strength.","I am allowed to begin again, gently.","I move at the speed of my own breath.","I welcome this day as a gift."],
+fr:["Je suis exactement où je dois être aujourd'hui.","Mon énergie est calme, concentrée et abondante.","Chaque respiration me ramène à l'instant présent.","J'accueille ce jour le cœur ouvert.","Les petits pas d'aujourd'hui dessinent un beau demain.","La paix commence dès l'instant où je la choisis.","Je mérite le repos, la joie et les matinées lentes.","Je relâche ce que je ne peux pas contrôler.","La joie habite les plus petits détails.","Aujourd'hui je choisis la curiosité plutôt que la peur.","La gratitude transforme les jours ordinaires en cadeaux.","Je fais confiance à la bonté qui m'habite.","Aujourd'hui a le droit d'être doux.","Je suis le jardinier de ma propre paix.","Ma valeur ne se mesure pas à ma productivité.","Je porte une lumière douce partout où je vais.","Mon intuition est une boussole fiable.","La lenteur est aussi une forme de progrès.","Je fais de la place pour ce qui compte vraiment.","Aujourd'hui, la bienveillance est ma première langue.","Mon souffle est une porte vers chez moi.","L'espoir est un muscle calme et patient.","Je remarque la lumière, même les jours gris.","J'honore mes besoins sans m'excuser.","Je fais confiance au chemin qui se déploie devant moi.","Je suis enraciné, comme un arbre dans un champ paisible.","Je mérite des matins qui ressemblent à une prière.","Ma présence est une force tranquille.","J'ai le droit de recommencer, en douceur.","J'avance au rythme de mon propre souffle.","J'accueille ce jour comme un cadeau."]
+};
+
+const PSALMS={
+en:[{t:"The Lord is my shepherd; I shall not want.",r:"Psalm 23:1"},{t:"Be still, and know that I am God.",r:"Psalm 46:10"},{t:"This is the day the Lord has made; let us rejoice and be glad in it.",r:"Psalm 118:24"},{t:"Taste and see that the Lord is good.",r:"Psalm 34:8"},{t:"My help comes from the Lord, the Maker of heaven and earth.",r:"Psalm 121:2"},{t:"May the words of my mouth and the meditation of my heart be pleasing in your sight.",r:"Psalm 19:14"},{t:"I praise you because I am fearfully and wonderfully made.",r:"Psalm 139:14"},{t:"Create in me a clean heart, O God, and renew a right spirit within me.",r:"Psalm 51:10"},{t:"In your presence there is fullness of joy.",r:"Psalm 16:11"},{t:"Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty.",r:"Psalm 91:1"},{t:"Be still before the Lord and wait patiently for him.",r:"Psalm 37:7"},{t:"Weeping may stay for the night, but rejoicing comes in the morning.",r:"Psalm 30:5"},{t:"Truly my soul finds rest in God; my salvation comes from him.",r:"Psalm 62:1"},{t:"Enter his gates with thanksgiving and his courts with praise.",r:"Psalm 100:4"},{t:"The Lord is near to all who call on him in truth.",r:"Psalm 145:18"},{t:"God is the strength of my heart and my portion forever.",r:"Psalm 73:26"},{t:"I keep my eyes always on the Lord.",r:"Psalm 16:8"},{t:"You, Lord, are forgiving and good, abounding in love.",r:"Psalm 86:5"},{t:"As the deer pants for streams of water, so my soul pants for you, my God.",r:"Psalm 42:1"},{t:"In peace I will lie down and sleep.",r:"Psalm 4:8"},{t:"The Lord is my light and my salvation; whom shall I fear?",r:"Psalm 27:1"}],
+fr:[{t:"L'Éternel est mon berger : je ne manquerai de rien.",r:"Psaume 23:1"},{t:"Arrêtez, et sachez que je suis Dieu.",r:"Psaume 46:10"},{t:"C'est ici la journée que l'Éternel a faite.",r:"Psaume 118:24"},{t:"Goûtez et voyez combien l'Éternel est bon.",r:"Psaume 34:8"},{t:"Mon secours vient de l'Éternel, qui a fait les cieux et la terre.",r:"Psaume 121:2"},{t:"Reçois favorablement les paroles de ma bouche et les sentiments de mon cœur.",r:"Psaume 19:14"},{t:"Je te loue de ce que je suis une créature si merveilleuse.",r:"Psaume 139:14"},{t:"Ô Dieu ! crée en moi un cœur pur.",r:"Psaume 51:10"},{t:"Il y a d'abondantes joies devant ta face.",r:"Psaume 16:11"},{t:"Celui qui demeure sous l'abri du Très-Haut repose à l'ombre du Tout-Puissant.",r:"Psaume 91:1"},{t:"Garde le silence devant l'Éternel, et espère en lui.",r:"Psaume 37:7"},{t:"Le soir arrivent les pleurs, et le matin l'allégresse.",r:"Psaume 30:5"},{t:"C'est en Dieu que mon âme se confie ; de lui vient mon salut.",r:"Psaume 62:1"},{t:"Entrez dans ses portes avec des louanges.",r:"Psaume 100:4"},{t:"L'Éternel est près de tous ceux qui l'invoquent en vérité.",r:"Psaume 145:18"},{t:"Dieu sera toujours le rocher de mon cœur.",r:"Psaume 73:26"},{t:"J'ai constamment l'Éternel sous mes yeux.",r:"Psaume 16:8"},{t:"Car tu es bon, Seigneur, tu pardonnes, tu es plein d'amour.",r:"Psaume 86:5"},{t:"Comme une biche soupire après des courants d'eau, ainsi mon âme soupire après toi.",r:"Psaume 42:1"},{t:"Je me couche et je m'endors en paix.",r:"Psaume 4:8"},{t:"L'Éternel est ma lumière et mon salut.",r:"Psaume 27:1"}]
+};
+
+const WMO={0:{en:"Clear sky",fr:"Ciel clair",i:"☀️"},1:{en:"Mainly clear",fr:"Plutôt clair",i:"🌤️"},2:{en:"Partly cloudy",fr:"Partiellement nuageux",i:"⛅"},3:{en:"Overcast",fr:"Couvert",i:"☁️"},45:{en:"Fog",fr:"Brouillard",i:"🌫️"},48:{en:"Icy fog",fr:"Brouillard givrant",i:"🌫️"},51:{en:"Light drizzle",fr:"Bruine légère",i:"🌦️"},53:{en:"Drizzle",fr:"Bruine",i:"🌦️"},55:{en:"Heavy drizzle",fr:"Bruine forte",i:"🌦️"},61:{en:"Light rain",fr:"Pluie légère",i:"🌧️"},63:{en:"Rain",fr:"Pluie",i:"🌧️"},65:{en:"Heavy rain",fr:"Pluie forte",i:"🌧️"},71:{en:"Light snow",fr:"Neige légère",i:"🌨️"},73:{en:"Snow",fr:"Neige",i:"❄️"},75:{en:"Heavy snow",fr:"Neige forte",i:"❄️"},80:{en:"Showers",fr:"Averses",i:"🌦️"},81:{en:"Heavy showers",fr:"Fortes averses",i:"🌧️"},95:{en:"Thunderstorm",fr:"Orage",i:"⛈️"}};
+
+const LINKS=[
+  {url:"https://nanciedee.github.io/My1Prayer",icon:"🙏",label:{en:"My 1 Prayer",fr:"Ma 1ère Prière"},sub:{en:"Daily prayer",fr:"Prière quotidienne"}},
+  {url:"https://nanciedee.github.io/CardDraw/",icon:"🃏",label:{en:"Card Draw",fr:"Tirage de cartes"},sub:{en:"Oracle cards",fr:"Cartes oracle"}},
+  {url:"https://nanciedee.github.io/MonOracle2026/",icon:"✨",label:{en:"Oracle 2026",fr:"Mon Oracle 2026"},sub:{en:"Year guidance",fr:"Guidance annuelle"}},
+  {url:"https://nanciedee.github.io/Bible2moi",icon:"📖",label:{en:"Bible 2 Moi",fr:"Bible 2 Moi"},sub:{en:"Personal Bible",fr:"Bible personnelle"}},
+  {url:"https://nanciedee.github.io/neuvaines2moi",icon:"🕯️",label:{en:"Neuvaines",fr:"Neuvaines"},sub:{en:"Novena prayers",fr:"Prières de neuvaine"}},
+  {url:"https://nanciedee.github.io/Gestion-Repas",icon:"🍽️",label:{en:"Meal Planner",fr:"Gestion Repas"},sub:{en:"Meal planning",fr:"Planification repas"}}
+];
+
+/* ===================== STATE ===================== */
+let lang=localStorage.getItem('dc_lang')||'en';
+let savedCities=JSON.parse(localStorage.getItem('dc_cities')||'[]');
+let defaultCity=localStorage.getItem('dc_default_city')||'';
+let grocItems=JSON.parse(localStorage.getItem('dc_grocery')||'[]');
+let apptItems=JSON.parse(localStorage.getItem('dc_appts')||'[]');
+let themeMode=localStorage.getItem('dc_theme')||'auto'; // 'auto'|'dark'|'light'
+let medRunning=false,medRemain=300,medDuration=5,medInterval=null,medPhaseInterval=null,medPhase='in';
+
+const dateKey=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const todayKey=()=>'dc_water_'+dateKey();
+let waterCount=parseInt(localStorage.getItem(todayKey())||'0');
+
+/* ===================== HELPERS ===================== */
+const $=id=>document.getElementById(id);
+const s=(id,txt)=>{const el=$(id);if(el)el.textContent=txt;};
+const t=k=>T[lang][k]||k;
+
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
+
+/* ===================== THEME ===================== */
+function applyTheme(){
+  const h=new Date().getHours();
+  const isDark=themeMode==='dark'||(themeMode==='auto'&&(h>=19||h<7));
+  document.body.classList.toggle('dark',isDark);
+  $('theme-btn').textContent=isDark?'☀️':'🌙';
+}
+function toggleThemeManual(){
+  const h=new Date().getHours();
+  const isDark=document.body.classList.contains('dark');
+  // If auto would give dark and we're dark → switch to light; else switch to dark
+  themeMode=isDark?'light':'dark';
+  localStorage.setItem('dc_theme',themeMode);
+  applyTheme();
+}
+// Re-check theme every minute for auto-switching
+applyTheme();
+setInterval(()=>{ if(themeMode==='auto') applyTheme(); },60000);
+
+/* ===================== LANGUAGE ===================== */
+function setLang(l){
+  lang=l;localStorage.setItem('dc_lang',l);
+  $('btn-en').className='pb'+(l==='en'?' on':'');
+  $('btn-fr').className='pb'+(l==='fr'?' on':'');
+  updateAllUI();
+}
+
+function updateAllUI(){
+  document.documentElement.lang=lang;
+  s('app-title',t('appTitle'));s('app-tagline',t('tagline'));
+  s('lbl-weather',t('weather'));s('lbl-today',t('today'));s('lbl-search',t('search'));
+  $('city-input').placeholder=lang==='fr'?'Rechercher une ville…':'Search city…';
+  s('lbl-affirm-over',t('affirmOver'));s('lbl-affirm-title',t('affirmTitle'));
+  s('lbl-appt-over',t('apptOver'));s('lbl-appt-title',t('apptTitle'));s('lbl-add-appt',t('addAppt'));
+  $('appt-text').placeholder=t('apptPH');
+  s('lbl-groc-over',t('grocOver'));s('lbl-groc-title',t('grocTitle'));
+  $('groc-input').placeholder=t('grocPH');
+  s('lbl-med-over',t('medOver'));s('lbl-med-title',t('medTitle'));
+  s('lbl-begin',medRunning?t('pause'):t('begin'));s('lbl-med-reset',t('reset'));
+  if(!medRunning)s('med-phase',t('duration'));
+  s('lbl-water-over',t('waterOver'));s('lbl-water-title',t('waterTitle'));
+  s('lbl-glasses',t('glasses'));s('lbl-w-reset',t('wReset'));
+  s('water-goal-lbl',`${t('goal')}: 8 ${t('glasses')}`);
+  s('lbl-psalm-over',t('psalmOver'));s('lbl-psalm-title',t('psalmTitle'));
+  s('lbl-water-chart',t('waterChart'));s('lbl-med-chart',t('medChart'));
+  s('lbl-links-title',t('myPages'));
+  s('sync-btn-lbl',t('syncBtn'));
+  s('sync-modal-title',t('syncTitle'));s('sync-modal-desc',t('syncDesc'));
+  s('btn-copy',t('btnCopy'));s('btn-import',t('btnImport'));s('btn-close-sync',t('btnClose'));
+  s('btn-share-link',t('btnShareLink'));s('sync-link-desc',t('syncLinkDesc'));
+  $('sync-import-input').placeholder=lang==='fr'?'Collez le code ici…':'Paste sync code here…';
+  updateHero();updateAffirmation();updatePsalm();
+  renderAppts();renderGrocery();updateSavedCitiesUI();renderCharts();renderLinks();
+}
+
+/* ===================== HERO ===================== */
+function updateHero(){
+  const now=new Date();const h=now.getHours();
+  const greet=h<12?t('morning'):h<17?t('afternoon'):h<21?t('evening'):t('night');
+  $('hero-greeting').textContent=greet;
+  $('hero-date').textContent=now.toLocaleDateString(lang==='fr'?'fr-CA':'en-CA',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+
+/* ===================== AFFIRMATION & PSALM ===================== */
+function updateAffirmation(){
+  const idx=new Date().getDate()%AFFIRMATIONS[lang].length;
+  $('affirm-text').textContent=`"${AFFIRMATIONS[lang][idx]}"`;
+}
+function updatePsalm(){
+  const idx=new Date().getDate()%PSALMS[lang].length;
+  const p=PSALMS[lang][idx];
+  $('psalm-text').textContent=`"${p.t}"`;
+  $('psalm-ref').textContent=`— ${p.r}`;
+}
+
+/* ===================== WEATHER ===================== */
+function showWeatherData(data,cityName){
+  const c=data.current;const desc=WMO[c.weather_code]||{en:'—',fr:'—',i:'🌡️'};
+  $('weather-display').innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:4px">
+          <span class="serif" style="font-size:50px;line-height:1">${Math.round(c.temperature_2m)}</span>
+          <span class="serif" style="font-size:22px;color:var(--muted)">°C</span>
+        </div>
+        <div class="serif" style="font-style:italic;font-size:16px;color:var(--muted);margin-top:5px">${desc[lang]}</div>
+        ${cityName?`<div style="font-size:12px;color:var(--muted);margin-top:2px">${cityName}</div>`:''}
+      </div>
+      <div style="font-size:42px;line-height:1;margin-top:4px">${desc.i}</div>
+    </div>
+    <div class="w-stats">
+      <div><div class="wsl">${t('feels')}</div><div class="wsv">${Math.round(c.apparent_temperature)}°</div></div>
+      <div><div class="wsl">${t('humidity')}</div><div class="wsv">${c.relative_humidity_2m}%</div></div>
+      <div><div class="wsl">${t('wind')}</div><div class="wsv">${Math.round(c.wind_speed_10m)} km/h</div></div>
+    </div>`;
+}
+
+async function fetchWeatherCoords(lat,lon,cityName){
+  $('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('locating')}</div>`;
+  try{
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`);
+    const data=await r.json();showWeatherData(data,cityName);
+  }catch{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;}
+}
+
+async function fetchWeatherByCity(){
+  const city=$('city-input').value.trim();if(!city)return;
+  $('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('locating')}</div>`;
+  try{
+    const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=${lang}`);
+    const d=await r.json();
+    if(!d.results||!d.results[0]){$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;return;}
+    const res=d.results[0];
+    const label=`${res.name}${res.admin1?', '+res.admin1:''}, ${res.country}`;
+    await fetchWeatherCoords(res.latitude,res.longitude,label);
+    if(!savedCities.find(c=>c.name===label)){savedCities.push({name:label,lat:res.latitude,lon:res.longitude});localStorage.setItem('dc_cities',JSON.stringify(savedCities));}
+    updateSavedCitiesUI();$('city-input').value='';
+  }catch{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;}
+}
+
+function loadCity(i){fetchWeatherCoords(savedCities[i].lat,savedCities[i].lon,savedCities[i].name);}
+function setDefaultCity(name){defaultCity=name;localStorage.setItem('dc_default_city',name);updateSavedCitiesUI();}
+function removeCity(name){savedCities=savedCities.filter(c=>c.name!==name);localStorage.setItem('dc_cities',JSON.stringify(savedCities));if(defaultCity===name){defaultCity='';localStorage.removeItem('dc_default_city');}updateSavedCitiesUI();}
+
+function updateSavedCitiesUI(){
+  const row=$('saved-cities-row');
+  if(!savedCities.length){row.innerHTML='';return;}
+  row.innerHTML=savedCities.map((c,i)=>`
+    <span class="cc${c.name===defaultCity?' def':''}" onclick="loadCity(${i})">
+      ${c.name===defaultCity?'★ ':''}${c.name.split(',')[0]}
+      <button class="rm" title="${t('defaultCity')}" onclick="event.stopPropagation();setDefaultCity(savedCities[${i}].name)">⚑</button>
+      <button class="rm" title="${t('removeCity')}" onclick="event.stopPropagation();removeCity(savedCities[${i}].name)">✕</button>
+    </span>`).join('');
+}
+
+function initWeather(){
+  if(defaultCity){const c=savedCities.find(x=>x.name===defaultCity);if(c){loadCity(savedCities.indexOf(c));return;}}
+  if(savedCities.length){loadCity(0);return;}
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      let city='';
+      try{const g=await fetch(`https://geocoding-api.open-meteo.com/v1/reverse?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&language=${lang}`);const gd=await g.json();city=gd?.results?.[0]?.name||'';}catch{}
+      fetchWeatherCoords(pos.coords.latitude,pos.coords.longitude,city);
+    },()=>{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('denied')}</div>`;},{timeout:8000,maximumAge:600000});
+  }else{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;}
+}
+
+/* ===================== MEDITATION ===================== */
+const DURS=[3,5,10,15,20];
+function renderDurChips(){$('dur-chips').innerHTML=DURS.map(d=>`<button class="chip${d===medDuration?' on':''}" onclick="setDur(${d})">${d} min</button>`).join('');}
+function setDur(d){if(medRunning)return;medDuration=d;medRemain=d*60;renderDurChips();updateMedTimer();}
+function updateMedTimer(){const mm=String(Math.floor(medRemain/60)).padStart(2,'0');const ss=String(medRemain%60).padStart(2,'0');s('med-timer',`${mm}:${ss}`);}
+
+function medStart(){
+  if(medRunning){
+    medRunning=false;clearInterval(medInterval);clearInterval(medPhaseInterval);
+    s('lbl-begin',t('begin'));s('med-phase',t('duration'));
+    $('mro').style.transform='scale(1)';$('mri').style.transform='scale(1)';return;
+  }
+  if(medRemain<=0)return;
+  medRunning=true;s('lbl-begin',t('pause'));
+  let pe=0;
+  medPhaseInterval=setInterval(()=>{
+    pe=(pe+1)%8;medPhase=pe<4?'in':'out';
+    $('mro').style.transform=medPhase==='in'?'scale(1.35)':'scale(0.9)';
+    $('mri').style.transform=medPhase==='in'?'scale(1.2)':'scale(0.92)';
+    s('med-phase',medPhase==='in'?t('breatheIn'):t('breatheOut'));
+  },1000);
+  medInterval=setInterval(()=>{
+    medRemain--;updateMedTimer();
+    if(medRemain<=0){
+      clearInterval(medInterval);clearInterval(medPhaseInterval);
+      medRunning=false;s('lbl-begin',t('begin'));s('med-phase',t('medDone'));
+      $('mro').style.transform='scale(1)';$('mri').style.transform='scale(1)';
+      // Save today's meditation minutes
+      const done=medDuration;
+      const key='dc_med_'+dateKey();
+      const prev=parseInt(localStorage.getItem(key)||'0');
+      localStorage.setItem(key,prev+done);
+      renderCharts();
+    }
+  },1000);
+}
+
+function medReset(){
+  clearInterval(medInterval);clearInterval(medPhaseInterval);
+  medRunning=false;medRemain=medDuration*60;
+  updateMedTimer();s('lbl-begin',t('begin'));s('med-phase',t('duration'));
+  $('mro').style.transform='scale(1)';$('mri').style.transform='scale(1)';
+}
+
+/* ===================== GROCERY ===================== */
+function renderGrocery(){
+  const ul=$('groc-list');const done=grocItems.filter(i=>i.done).length;
+  if(!grocItems.length){ul.innerHTML=`<li style="font-style:italic;color:var(--muted);font-size:12px;padding:8px 0">${lang==='fr'?'Votre liste est vide.':'Your list is clear.'}</li>`;$('groc-footer').innerHTML='';return;}
+  ul.innerHTML=grocItems.map(i=>`
+    <li class="gi">
+      <button class="ck${i.done?' on':''}" onclick="toggleGroc('${i.id}')">${i.done?'✓':''}</button>
+      <span class="gt${i.done?' done':''}">${i.text}</span>
+      <button class="ib" onclick="removeGroc('${i.id}')">✕</button>
+    </li>`).join('');
+  $('groc-footer').innerHTML=`<span>${done}/${grocItems.length} ${t('items')}</span>${done?`<button class="ib" onclick="clearDoneGroc()" style="font-size:11px">${t('clearDone')}</button>`:''}`;
+}
+function addGrocery(){const v=$('groc-input').value.trim();if(!v)return;grocItems.push({id:Date.now()+'',text:v,done:false});$('groc-input').value='';saveGrocery();renderGrocery();}
+function toggleGroc(id){grocItems=grocItems.map(i=>i.id===id?{...i,done:!i.done}:i);saveGrocery();renderGrocery();}
+function removeGroc(id){grocItems=grocItems.filter(i=>i.id!==id);saveGrocery();renderGrocery();}
+function clearDoneGroc(){grocItems=grocItems.filter(i=>!i.done);saveGrocery();renderGrocery();}
+function saveGrocery(){localStorage.setItem('dc_grocery',JSON.stringify(grocItems));}
+
+/* ===================== APPOINTMENTS ===================== */
+function renderAppts(){
+  const ul=$('appt-list');
+  if(!apptItems.length){ul.innerHTML=`<li style="font-style:italic;color:var(--muted);font-size:12px;padding:8px 0">${t('apptEmpty')}</li>`;return;}
+  ul.innerHTML=apptItems.map(i=>`
+    <li class="ai" onmouseenter="this.querySelector('.da').style.opacity=1" onmouseleave="this.querySelector('.da').style.opacity=0">
+      <span class="ad"></span>
+      ${i.time?`<span class="at">${i.time}</span>`:''}
+      <span style="flex:1;font-size:13px">${i.text}</span>
+      <button class="ib da" style="opacity:0;transition:opacity .2s" onclick="removeAppt('${i.id}')">✕</button>
+    </li>`).join('');
+}
+function addAppt(){const txt=$('appt-text').value.trim();if(!txt)return;const time=$('appt-time').value;apptItems.push({id:Date.now()+'',text:txt,time});apptItems.sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));$('appt-text').value='';$('appt-time').value='';localStorage.setItem('dc_appts',JSON.stringify(apptItems));renderAppts();}
+function removeAppt(id){apptItems=apptItems.filter(i=>i.id!==id);localStorage.setItem('dc_appts',JSON.stringify(apptItems));renderAppts();}
+
+/* ===================== WATER ===================== */
+function renderWater(){
+  s('water-count',waterCount);
+  $('water-drops').innerHTML=Array.from({length:8},(_,i)=>`<button class="db${i<waterCount?' on':''}" onclick="toggleDrop(${i})" aria-label="glass ${i+1}">${i<waterCount?'💧':'○'}</button>`).join('');
+}
+function toggleDrop(i){waterCount=(i+1===waterCount)?i:i+1;saveWater();renderWater();}
+function resetWater(){waterCount=0;saveWater();renderWater();}
+function saveWater(){localStorage.setItem(todayKey(),waterCount);renderCharts();}
+
+/* ===================== CHARTS ===================== */
+function getLast7Dates(){
+  return Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return d;});
+}
+function renderCharts(){
+  const days=getLast7Dates();
+  const dayNames={en:['Su','Mo','Tu','We','Th','Fr','Sa'],fr:['Di','Lu','Ma','Me','Je','Ve','Sa']};
+  const names=dayNames[lang];
+  const todayStr=dateKey();
+
+  // Water (goal 8)
+  const wData=days.map(d=>({v:parseInt(localStorage.getItem('dc_water_'+dateKey(d))||'0'),isToday:dateKey(d)===todayStr,name:names[d.getDay()]}));
+  const wMax=Math.max(8,...wData.map(x=>x.v));
+  $('water-chart').innerHTML=wData.map(d=>`
+    <div class="bar-col">
+      <div class="bar-val">${d.v>0?d.v:''}</div>
+      <div class="bar${d.isToday?' today':''}" style="height:${Math.max(4,Math.round((d.v/wMax)*60))}px"></div>
+      <div class="bar-lbl">${d.name}</div>
+    </div>`).join('');
+
+  // Meditation (max possible per day ~60 min)
+  const mData=days.map(d=>({v:parseInt(localStorage.getItem('dc_med_'+dateKey(d))||'0'),isToday:dateKey(d)===todayStr,name:names[d.getDay()]}));
+  const mMax=Math.max(5,...mData.map(x=>x.v));
+  $('med-chart').innerHTML=mData.map(d=>`
+    <div class="bar-col">
+      <div class="bar-val">${d.v>0?d.v:''}</div>
+      <div class="bar${d.isToday?' today':''}" style="height:${Math.max(4,Math.round((d.v/mMax)*60))}px;background:var(--secondary)"></div>
+      <div class="bar-lbl">${d.name}</div>
+    </div>`).join('');
+}
+
+/* ===================== LINKS ===================== */
+function renderLinks(){
+  $('links-grid').innerHTML=LINKS.map(l=>`
+    <a class="link-card" href="${l.url}" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon">${l.icon}</div>
+      <div>
+        <div class="link-label">${l.label[lang]}</div>
+        <div class="link-sub">${l.sub[lang]}</div>
+      </div>
+    </a>`).join('');
+}
+
+/* ===================== SYNC ===================== */
+function getSyncPayload(){
+  return btoa(unescape(encodeURIComponent(JSON.stringify({
+    v:1,
+    grocery:grocItems,
+    appts:apptItems,
+    cities:savedCities,
+    defaultCity,
+    lang,
+    water:{[dateKey()]:waterCount},
+  }))));
+}
+
+function getShareURL(){
+  const base=window.location.href.split('?')[0].split('#')[0];
+  return `${base}?sync=${encodeURIComponent(getSyncPayload())}`;
+}
+
+function openSync(){
+  const payload=getSyncPayload();
+  $('sync-export-code').textContent=payload;
+  $('sync-link-box').textContent=getShareURL();
+  $('sync-import-input').value='';
+  // update translated labels
+  s('sync-link-desc',t('syncLinkDesc'));
+  s('btn-share-link',t('btnShareLink'));
+  s('sync-modal-title',t('syncTitle'));
+  s('sync-modal-desc',t('syncDesc'));
+  s('btn-copy',t('btnCopy'));
+  s('btn-import',t('btnImport'));
+  s('btn-close-sync',t('btnClose'));
+  $('sync-import-input').placeholder=lang==='fr'?'Collez le code ici…':'Paste sync code here…';
+  $('sync-modal').classList.add('open');
+}
+function closeSync(){$('sync-modal').classList.remove('open');}
+
+async function copyCode(){
+  const code=$('sync-export-code').textContent;
+  try{await navigator.clipboard.writeText(code);}catch{const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+  toast(t('copied'));
+}
+
+async function copyLink(){
+  const url=getShareURL();
+  try{await navigator.clipboard.writeText(url);}catch{const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+  toast(t('linkCopied'));
+}
+
+function importCode(){
+  const raw=$('sync-import-input').value.trim();
+  if(!raw){toast(t('importErr'));return;}
+  applyImport(raw);
+}
+
+function applyImport(raw){
+  try{
+    const data=JSON.parse(decodeURIComponent(escape(atob(raw))));
+    if(!data.v)throw new Error('bad');
+    if(data.grocery){grocItems=data.grocery;saveGrocery();}
+    if(data.appts){apptItems=data.appts;localStorage.setItem('dc_appts',JSON.stringify(apptItems));}
+    if(data.cities){savedCities=data.cities;localStorage.setItem('dc_cities',JSON.stringify(savedCities));}
+    if(data.defaultCity){defaultCity=data.defaultCity;localStorage.setItem('dc_default_city',defaultCity);}
+    if(data.lang){lang=data.lang;localStorage.setItem('dc_lang',lang);}
+    if(data.water){Object.entries(data.water).forEach(([k,v])=>localStorage.setItem('dc_water_'+k,v));waterCount=parseInt(localStorage.getItem(todayKey())||'0');}
+    closeSync();toast(t('imported'));
+    updateAllUI();renderWater();
+    // Clean URL after import
+    if(window.history&&window.history.replaceState){
+      window.history.replaceState({},'',window.location.pathname);
+    }
+  }catch{toast(t('importErr'));}
+}
+
+// Auto-import if ?sync= param present in URL
+function checkURLSync(){
+  const params=new URLSearchParams(window.location.search);
+  const code=params.get('sync');
+  if(code){
+    // Small delay so page finishes rendering first
+    setTimeout(()=>{
+      applyImport(decodeURIComponent(code));
+    },600);
+  }
+}
+
+// Close modal on background click
+$('sync-modal').addEventListener('click',e=>{if(e.target===$('sync-modal'))closeSync();});
+
+/* ===================== BOOT ===================== */
+updateAllUI();
+renderDurChips();updateMedTimer();
+renderGrocery();renderAppts();renderWater();renderCharts();renderLinks();
+initWeather();
+checkURLSync();
+// Update hero time every minute
+setInterval(updateHero,60000);
+</script>
+</body>
+</html>
