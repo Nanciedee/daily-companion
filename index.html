@@ -29,11 +29,11 @@ body{font-family:'Outfit',-apple-system,sans-serif;background:var(--bg);color:va
 .wrapper{max-width:1140px;margin:0 auto;padding:0 18px 60px}
 .row{display:grid;gap:13px;margin-bottom:13px}
 .r-wa{grid-template-columns:5fr 7fr}
+.r-moon{grid-template-columns:5fr 7fr}
 .r-am{grid-template-columns:7fr 5fr}
 .r-bot{grid-template-columns:5fr 4fr 3fr}
-.r-links{grid-template-columns:1fr}
 .r-charts{grid-template-columns:1fr 1fr}
-@media(max-width:760px){.r-wa,.r-am,.r-bot,.r-charts{grid-template-columns:1fr}}
+@media(max-width:760px){.r-wa,.r-moon,.r-am,.r-bot,.r-charts{grid-template-columns:1fr}}
 
 /* Header */
 header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(249,246,240,.85);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s}
@@ -402,12 +402,23 @@ en:{
   morning:"Good morning",afternoon:"Good afternoon",evening:"Good evening",night:"Peaceful night",
   waterChart:"Water — 7 days",medChart:"Meditation — 7 days",
   myPages:"My Pages",
+  moonOver:"Moon phase",
+  moonPhases:{new:"New Moon",waxCres:"Waxing Crescent",firstQ:"First Quarter",waxGib:"Waxing Gibbous",full:"Full Moon",wanGib:"Waning Gibbous",lastQ:"Last Quarter",wanCres:"Waning Crescent"},
+  moonIllum:"% illuminated",
+  moonNextFull:"Next full moon in",moonNextNew:"Next new moon in",days:"days",moonToday:"today",
   syncTitle:"Sync / Export",syncDesc:"Copy this code to import your data on another device. Paste a code from another device to import.",
   btnCopy:"📋 Copy",btnImport:"📥 Import",btnClose:"✕ Close",
   copied:"Copied to clipboard!",imported:"Data imported ✓",importErr:"Invalid sync code.",
   syncBtn:"☁ Sync",
   btnShareLink:"🔗 Copy link",linkCopied:"Shareable link copied! Send it to any device.",
   syncLinkDesc:"Or share as a link — open it on another device to import automatically.",
+  pdfTitle:"Print / PDF",pdfBtn:"🖨️ Print / PDF",
+  pdfStyleLabel:"Style",pdfStyleBeautiful:"🌿 Beautiful",pdfStyleSimple:"📋 Simple",
+  pdfPrint:"🖨️ Print / Save PDF",pdfClose:"✕ Close",
+  pdfOpts:{
+    appt:"📅 Appointments",groc:"🧺 Grocery list",water:"💧 Water intake",
+    med:"🧘 Meditation log",affirm:"❝ Affirmation",psalm:"📖 Psalm",moon:"🌙 Moon phase"
+  },
 },
 fr:{
   appTitle:"Compagnon Quotidien",tagline:"Petits rituels, journées douces",
@@ -429,12 +440,23 @@ fr:{
   morning:"Bonjour",afternoon:"Bon après-midi",evening:"Bonsoir",night:"Nuit paisible",
   waterChart:"Eau — 7 jours",medChart:"Méditation — 7 jours",
   myPages:"Mes pages",
+  moonOver:"Phase de la lune",
+  moonPhases:{new:"Nouvelle Lune",waxCres:"Croissant croissant",firstQ:"Premier Quartier",waxGib:"Gibbeuse croissante",full:"Pleine Lune",wanGib:"Gibbeuse décroissante",lastQ:"Dernier Quartier",wanCres:"Croissant décroissant"},
+  moonIllum:"% illuminé",
+  moonNextFull:"Prochaine pleine lune dans",moonNextNew:"Prochaine nouvelle lune dans",days:"jours",moonToday:"aujourd'hui",
   syncTitle:"Synchronisation",syncDesc:"Copiez ce code pour importer vos données sur un autre appareil. Collez un code provenant d'un autre appareil pour importer.",
   btnCopy:"📋 Copier",btnImport:"📥 Importer",btnClose:"✕ Fermer",
   copied:"Copié dans le presse-papiers !",imported:"Données importées ✓",importErr:"Code invalide.",
   syncBtn:"☁ Sync",
   btnShareLink:"🔗 Copier le lien",linkCopied:"Lien copiable copié ! Ouvrez-le sur un autre appareil.",
   syncLinkDesc:"Ou partagez comme lien — ouvrez-le sur un autre appareil pour importer automatiquement.",
+  pdfTitle:"Imprimer / PDF",pdfBtn:"🖨️ Imprimer / PDF",
+  pdfStyleLabel:"Style",pdfStyleBeautiful:"🌿 Élégant",pdfStyleSimple:"📋 Sobre",
+  pdfPrint:"🖨️ Imprimer / Sauver PDF",pdfClose:"✕ Fermer",
+  pdfOpts:{
+    appt:"📅 Rendez-vous",groc:"🧺 Liste de courses",water:"💧 Hydratation",
+    med:"🧘 Journal méditation",affirm:"❝ Affirmation",psalm:"📖 Psaume",moon:"🌙 Phase lunaire"
+  },
 }};
 
 /* ===================== DAILY CONTENT ===================== */
@@ -458,7 +480,112 @@ const LINKS=[
   {url:"https://nanciedee.github.io/neuvaines2moi",icon:"🕯️",label:{en:"Neuvaines",fr:"Neuvaines"},sub:{en:"Novena prayers",fr:"Prières de neuvaine"}},
   {url:"https://nanciedee.github.io/Qceqonmange/planning.html",icon:"🍽️",label:{en:"Meal Planner",fr:"Gestion Repas"},sub:{en:"Meal planning",fr:"Planification repas"}}
 ];
+/* ═══════════════════════════════════════════
+   MOON CALCULATION (Jean Meeus algorithm)
+   Known new moon anchor: Jan 6 2000 18:14 UTC
+   Synodic period: 29.53058867 days
+═══════════════════════════════════════════ */
+const MOON_SYNODIC = 29.53058867;
+const MOON_ANCHOR  = new Date('2000-01-06T18:14:00Z').getTime();
 
+// Reference new moons 2025-2030 for accuracy verification
+const NEW_MOONS = [
+  '2025-01-29','2025-02-28','2025-03-29','2025-04-27','2025-05-27','2025-06-25',
+  '2025-07-24','2025-08-23','2025-09-21','2025-10-21','2025-11-20','2025-12-20',
+  '2026-01-18','2026-02-17','2026-03-19','2026-04-17','2026-05-16','2026-06-15',
+  '2026-07-14','2026-08-12','2026-09-11','2026-10-10','2026-11-09','2026-12-09',
+  '2027-01-07','2027-02-06','2027-03-08','2027-04-06','2027-05-06','2027-06-04',
+  '2027-07-04','2027-08-02','2027-09-01','2027-09-30','2027-10-30','2027-11-28','2027-12-28',
+  '2028-01-26','2028-02-25','2028-03-26','2028-04-24','2028-05-24','2028-06-22',
+  '2028-07-22','2028-08-20','2028-09-18','2028-10-18','2028-11-16','2028-12-16',
+  '2029-01-14','2029-02-13','2029-03-15','2029-04-13','2029-05-13','2029-06-11',
+  '2029-07-11','2029-08-09','2029-09-08','2029-10-07','2029-11-06','2029-12-05',
+  '2030-01-04','2030-02-02','2030-03-04','2030-04-02','2030-05-02','2030-05-31',
+  '2030-06-30','2030-07-29','2030-08-28','2030-09-27','2030-10-26','2030-11-25','2030-12-25'
+].map(s=>new Date(s+'T12:00:00Z').getTime());
+
+function getMoonAge(date){
+  const ms=date.getTime();
+  // Find closest past new moon from our reference list
+  let best=null;
+  for(const nm of NEW_MOONS){
+    if(nm<=ms){best=nm;}else break;
+  }
+  if(best===null){
+    // Fallback: calculate from anchor
+    const elapsed=(ms-MOON_ANCHOR)/(1000*60*60*24);
+    return((elapsed%MOON_SYNODIC)+MOON_SYNODIC)%MOON_SYNODIC;
+  }
+  const age=(ms-best)/(1000*60*60*24);
+  return age%MOON_SYNODIC;
+}
+
+function getMoonData(date){
+  const age=getMoonAge(date);
+  const phase=age/MOON_SYNODIC; // 0-1
+  // Illumination: 0 at new, 1 at full, 0 at new again
+  const illum=Math.round((1-Math.cos(phase*2*Math.PI))/2*100);
+
+  // Phase name index (8 phases)
+  const phaseIdx=Math.floor(((phase+0.0625)*8)%8);
+  const phaseKeys=['new','waxCres','firstQ','waxGib','full','wanGib','lastQ','wanCres'];
+  const phaseEmojis=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+  const key=phaseKeys[phaseIdx];
+  const emoji=phaseEmojis[phaseIdx];
+
+  // Days to next full moon and next new moon
+  const daysToFull=phase<0.5
+    ?(0.5-phase)*MOON_SYNODIC
+    :(1.5-phase)*MOON_SYNODIC;
+  const daysToNew=phase>0
+    ?((1-phase)*MOON_SYNODIC)
+    :0;
+
+  return{age,phase,illum,key,emoji,daysToFull:Math.round(daysToFull),daysToNew:Math.round(daysToNew)};
+}
+
+function renderMoon(){
+  const now=new Date();
+  const md=getMoonData(now);
+  const ph=T[lang].moonPhases;
+
+  document.getElementById('moon-emoji').textContent=md.emoji;
+  document.getElementById('moon-phase-name').textContent=ph[md.key];
+  document.getElementById('moon-pct').textContent=`${md.illum}% ${T[lang].moonIllum}`;
+
+  // Next event
+  const nextEl=document.getElementById('moon-next');
+  if(md.daysToFull===0){
+    nextEl.textContent=`🌕 ${T[lang].moonToday}!`;
+  }else if(md.daysToFull<=md.daysToNew){
+    nextEl.textContent=`🌕 ${T[lang].moonNextFull} ${md.daysToFull} ${T[lang].days}`;
+  }else if(md.daysToNew===0){
+    nextEl.textContent=`🌑 ${T[lang].moonToday}!`;
+  }else{
+    nextEl.textContent=`🌑 ${T[lang].moonNextNew} ${md.daysToNew} ${T[lang].days}`;
+  }
+
+  // Mini calendar — all days of current month
+  const cal=document.getElementById('moon-calendar');
+  const year=now.getFullYear();const month=now.getMonth();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+  const todayDate=now.getDate();
+
+  let html='';
+  for(let d=1;d<=daysInMonth;d++){
+    const dd=new Date(year,month,d,12,0,0);
+    const mdd=getMoonData(dd);
+    const isToday=d===todayDate;
+    // Show emoji only on phase transitions (every ~3-4 days) to keep clean
+    const showIcon=(d===1||Math.abs(mdd.age%3.69)<1);
+    html+=`<div class="moon-day${isToday?' today':''}">
+      <div class="moon-day-num" style="${isToday?'font-weight:500;color:var(--primary)':''}">${d}</div>
+      <div class="moon-day-icon">${showIcon?mdd.emoji:'·'}</div>
+    </div>`;
+  }
+  cal.innerHTML=html;
+}
+  
 /* ===================== STATE ===================== */
 let lang=localStorage.getItem('dc_lang')||'en';
 let savedCities=JSON.parse(localStorage.getItem('dc_cities')||'[]');
@@ -512,6 +639,7 @@ function updateAllUI(){
   s('lbl-weather',t('weather'));s('lbl-today',t('today'));s('lbl-search',t('search'));
   $('city-input').placeholder=lang==='fr'?'Rechercher une ville…':'Search city…';
   s('lbl-affirm-over',t('affirmOver'));s('lbl-affirm-title',t('affirmTitle'));
+  s('lbl-moon-over',t('moonOver'));
   s('lbl-appt-over',t('apptOver'));s('lbl-appt-title',t('apptTitle'));s('lbl-add-appt',t('addAppt'));
   $('appt-text').placeholder=t('apptPH');
   s('lbl-groc-over',t('grocOver'));s('lbl-groc-title',t('grocTitle'));
@@ -530,8 +658,9 @@ function updateAllUI(){
   s('btn-copy',t('btnCopy'));s('btn-import',t('btnImport'));s('btn-close-sync',t('btnClose'));
   s('btn-share-link',t('btnShareLink'));s('sync-link-desc',t('syncLinkDesc'));
   $('sync-import-input').placeholder=lang==='fr'?'Collez le code ici…':'Paste sync code here…';
-  updateHero();updateAffirmation();updatePsalm();
+  updateHero();updateAffirmation();updatePsalm();renderMoon();
   renderAppts();renderGrocery();updateSavedCitiesUI();renderCharts();renderLinks();
+  renderPDFOptions();
 }
 
 /* ===================== HERO ===================== */
@@ -843,14 +972,160 @@ function checkURLSync(){
 // Close modal on background click
 $('sync-modal').addEventListener('click',e=>{if(e.target===$('sync-modal'))closeSync();});
 
-/* ===================== BOOT ===================== */
+/* ═══════════════════════════════════════════
+   PDF / PRINT
+═══════════════════════════════════════════ */
+const PDF_SECTIONS=[
+  {id:'appt',cardId:'appt-card-wrap'},
+  {id:'groc',cardId:'groc-card-wrap'},
+  {id:'water',cardId:'water-card-wrap'},
+  {id:'med',cardId:'med-card-wrap'},
+  {id:'affirm',cardId:'affirm-card-wrap'},
+  {id:'psalm',cardId:'psalm-card-wrap'},
+  {id:'moon',cardId:'moon-card-wrap'},
+];
+let pdfSelected={appt:true,groc:true,water:true,med:false,affirm:true,psalm:true,moon:true};
+
+function renderPDFOptions(){
+  const opts=t('pdfOpts');
+  $('pdf-options').innerHTML=Object.keys(pdfSelected).map(k=>`
+    <label class="pdf-opt">
+      <input type="checkbox" ${pdfSelected[k]?'checked':''} onchange="pdfSelected['${k}']=this.checked"/>
+      <span class="pdf-opt-label">${opts[k]}</span>
+    </label>`).join('');
+}
+
+function setPdfStyle(s){
+  pdfStyle=s;
+  $('style-beautiful').className='style-chip'+(s==='beautiful'?' on':'');
+  $('style-simple').className='style-chip'+(s==='simple'?' on':'');
+}
+
+function openPDF(){$('pdf-modal').classList.add('open');renderPDFOptions();}
+function closePDF(){$('pdf-modal').classList.remove('open');}
+$('pdf-modal').addEventListener('click',e=>{if(e.target===$('pdf-modal'))closePDF();});
+
+function doPrint(){
+  closePDF();
+  // Build a dedicated print page in a new window
+  const now=new Date();
+  const dateStr=now.toLocaleDateString(lang==='fr'?'fr-CA':'en-CA',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const moonMd=getMoonData(now);
+  const moonPhName=T[lang].moonPhases[moonMd.key];
+  const affIdx=now.getDate()%AFFIRMATIONS[lang].length;
+  const psIdx=now.getDate()%PSALMS[lang].length;
+
+  const isBeautiful=pdfStyle==='beautiful';
+  const bgColor=isBeautiful?'#F9F6F0':'#ffffff';
+  const cardBg=isBeautiful?'#FCFAF8':'#ffffff';
+  const border=isBeautiful?'1px solid #E5E0D8':'1px solid #cccccc';
+  const headFont=isBeautiful?'Cormorant Garamond, Georgia, serif':'Arial, sans-serif';
+  const bodyFont=isBeautiful?'Outfit, sans-serif':'Arial, sans-serif';
+  const accent=isBeautiful?'#8A9A86':'#333333';
+  const secondary=isBeautiful?'#C87961':'#555555';
+
+  let sections='';
+
+  if(pdfSelected.moon){
+    sections+=`<div class="pc">
+      <div class="po">${t('moonOver')}</div>
+      <div style="display:flex;align-items:center;gap:14px;margin-top:6px">
+        <span style="font-size:40px">${moonMd.emoji}</span>
+        <div>
+          <div style="font-family:${headFont};font-size:22px;font-style:italic">${moonPhName}</div>
+          <div style="font-size:12px;color:#888;margin-top:3px">${moonMd.illum}% ${T[lang].moonIllum}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  if(pdfSelected.affirm){
+    sections+=`<div class="pc">
+      <div class="po">${t('affirmOver')}</div>
+      <blockquote style="font-family:${headFont};font-style:italic;font-size:20px;line-height:1.5;margin-top:8px;color:#2C3329">"${AFFIRMATIONS[lang][affIdx]}"</blockquote>
+    </div>`;
+  }
+
+  if(pdfSelected.psalm){
+    const ps=PSALMS[lang][psIdx];
+    sections+=`<div class="pc">
+      <div class="po">${t('psalmOver')}</div>
+      <blockquote style="font-family:${headFont};font-style:italic;font-size:18px;line-height:1.5;margin-top:8px;color:#2C3329">"${ps.t}"</blockquote>
+      <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:${secondary};margin-top:6px">— ${ps.r}</div>
+    </div>`;
+  }
+
+  if(pdfSelected.appt){
+    const apptHTML=apptItems.length
+      ?apptItems.map(i=>`<div style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid #eee;font-size:13px">
+          ${i.time?`<span style="color:${secondary};font-family:${headFont};font-size:15px;min-width:46px">${i.time}</span>`:'<span style="min-width:46px"></span>'}
+          <span>${i.text}</span></div>`).join('')
+      :`<div style="font-style:italic;color:#999;font-size:12px">${t('apptEmpty')}</div>`;
+    sections+=`<div class="pc"><div class="po">${t('apptTitle')}</div>${apptHTML}</div>`;
+  }
+
+  if(pdfSelected.groc){
+    const grocHTML=grocItems.length
+      ?`<div style="columns:2;gap:16px">`+grocItems.map(i=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13px;break-inside:avoid">
+          <span style="width:16px;height:16px;border-radius:50%;border:1.5px solid ${i.done?accent:'#ccc'};background:${i.done?accent:'transparent'};display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;flex-shrink:0">${i.done?'✓':''}</span>
+          <span style="${i.done?'text-decoration:line-through;opacity:.5':''}">${i.text}</span>
+        </div>`).join('')+`</div>`
+      :`<div style="font-style:italic;color:#999;font-size:12px">${lang==='fr'?'Votre liste est vide.':'Your list is clear.'}</div>`;
+    sections+=`<div class="pc"><div class="po">${t('grocTitle')}</div>${grocHTML}</div>`;
+  }
+
+  if(pdfSelected.water){
+    const drops=Array.from({length:8},(_,i)=>i<waterCount?'💧':'○').join(' ');
+    sections+=`<div class="pc">
+      <div class="po">${t('waterTitle')}</div>
+      <div style="display:flex;align-items:baseline;gap:6px;margin:6px 0">
+        <span style="font-family:${headFont};font-size:36px;line-height:1">${waterCount}</span>
+        <span style="font-family:${headFont};font-size:18px;color:#888">/ 8 ${t('glasses')}</span>
+      </div>
+      <div style="font-size:18px;letter-spacing:4px">${drops}</div>
+    </div>`;
+  }
+
+  if(pdfSelected.med){
+    const medMin=parseInt(localStorage.getItem('dc_med_'+dateKey())||'0');
+    sections+=`<div class="pc">
+      <div class="po">${t('medTitle')}</div>
+      <div style="font-family:${headFont};font-size:32px;margin-top:6px">${medMin} <span style="font-size:16px;color:#888">${t('duration')}</span></div>
+    </div>`;
+  }
+
+  const html=`<!DOCTYPE html><html lang="${lang}"><head><meta charset="UTF-8"/>
+  <title>Daily Companion — ${dateStr}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:${bodyFont};background:${bgColor};color:#2C3329;padding:28px 32px;font-size:14px;font-weight:300}
+    h1{font-family:${headFont};font-size:32px;font-weight:400;color:#2C3329;margin-bottom:4px}
+    .date{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#888;margin-bottom:22px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .pc{background:${cardBg};border:${border};border-radius:14px;padding:16px;break-inside:avoid}
+    .po{font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:#888;margin-bottom:8px}
+    @media print{body{padding:14px 18px}@page{margin:1.2cm}}
+  </style></head><body>
+  <h1>${T[lang].appTitle}</h1>
+  <div class="date">${dateStr}</div>
+  <div class="grid">${sections}</div>
+  <script>window.onload=()=>setTimeout(()=>window.print(),400)<\/script>
+  </body></html>`;
+
+  const win=window.open('','_blank','width=820,height=900');
+  if(win){win.document.write(html);win.document.close();}
+}
+
+/* ═══════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════ */
 updateAllUI();
 renderDurChips();updateMedTimer();
 renderGrocery();renderAppts();renderWater();renderCharts();renderLinks();
 initWeather();
-checkURLSync();
-// Update hero time every minute
 setInterval(updateHero,60000);
+setInterval(renderMoon,3600000); // refresh moon every hour
 </script>
 </body>
 </html>
