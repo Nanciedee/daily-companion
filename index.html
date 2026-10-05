@@ -25,7 +25,7 @@ body{font-family:'Outfit',-apple-system,sans-serif;background:var(--bg);color:va
 .serif{font-family:'Cormorant Garamond',Georgia,serif}
 .overline{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--muted)}
 
-/* Layout */
+/* ── Layout ── */
 .wrapper{max-width:1140px;margin:0 auto;padding:0 18px 60px}
 .row{display:grid;gap:13px;margin-bottom:13px}
 .r-wa{grid-template-columns:5fr 7fr}
@@ -35,48 +35,44 @@ body{font-family:'Outfit',-apple-system,sans-serif;background:var(--bg);color:va
 .r-charts{grid-template-columns:1fr 1fr}
 @media(max-width:760px){.r-wa,.r-moon,.r-am,.r-bot,.r-charts{grid-template-columns:1fr}}
 
-/* Header */
+/* ── Header ── */
 header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(249,246,240,.85);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s}
 .dark header{background:rgba(28,31,26,.88)}
-.hi{max-width:1140px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hi{max-width:1140px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .logo-wrap{display:flex;align-items:center;gap:10px}
 .logo-icon{width:32px;height:32px;border-radius:50%;background:rgba(138,154,134,.18);display:flex;align-items:center;justify-content:center;font-size:15px}
 .logo-title{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--text)}
 .logo-tag{font-size:9px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);margin-top:1px}
-.hdr-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hdr-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .pill{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--surface)}
 .pb{border:none;border-radius:999px;padding:4px 13px;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted)}
 .pb.on{background:var(--primary);color:#fff}
-.dark-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.dark-btn:hover{border-color:var(--primary)}
-.sync-btn{padding:4px 11px;font-size:11px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
-.sync-btn:hover{border-color:var(--primary);color:var(--text)}
-.sync-badge{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--secondary);margin-right:4px;vertical-align:middle}
+.icon-hdr-btn{height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:13px;display:flex;align-items:center;gap:5px;color:var(--muted);transition:all .2s;font-family:'Outfit',sans-serif;white-space:nowrap}
+.icon-hdr-btn:hover{border-color:var(--primary);color:var(--text)}
 
-/* Card */
+/* ── Card ── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:13px;box-shadow:var(--card-shadow);transition:transform .3s,box-shadow .3s,background .4s,border-color .4s}
 .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px -12px rgba(44,51,41,.13)}
-.dark .card:hover{box-shadow:0 8px 28px -10px rgba(0,0,0,.45)}
 .ch{display:flex;justify-content:space-between;align-items:flex-start}
 .ci{font-size:19px;opacity:.75}
 
-/* Buttons */
+/* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:999px;padding:7px 16px;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;font-weight:400}
 .bp{background:var(--primary);color:#fff}.bp:hover{background:var(--primary-h)}.bp:disabled{opacity:.4;cursor:not-allowed}
 .bs{background:transparent;border:1px solid var(--border);color:var(--text)}.bs:hover{border-color:var(--primary)}
 .bsm{padding:5px 11px;font-size:12px}
 .ib{background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;transition:color .2s;padding:2px}.ib:hover{color:var(--secondary)}
 
-/* Input */
+/* ── Input ── */
 .il{background:transparent;border:none;border-bottom:1px solid var(--border);padding:6px 0;outline:none;width:100%;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);transition:border-color .25s}
 .il:focus{border-bottom-color:var(--primary)}.il::placeholder{color:var(--muted);opacity:.7}
 
-/* Chips */
+/* ── Chips ── */
 .chip{border:1px solid var(--border);border-radius:999px;padding:4px 11px;font-size:11px;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif}
 .chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
 .chip:hover:not(.on){border-color:var(--primary);color:var(--text)}
 
-/* Hero */
+/* ── Hero ── */
 .hero{padding:26px 0 16px}
 .hero-g{font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--text);margin-top:6px;line-height:1.1}
 @media(max-width:500px){.hero-g{font-size:28px}}
@@ -91,7 +87,7 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backd
 .w-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center;font-size:11px;padding-top:9px;margin-top:7px;border-top:1px solid var(--border)}
 .wsl{color:var(--muted);margin-bottom:2px}.wsv{color:var(--text);font-weight:500}
 
- /* ── Moon ── */
+/* ── Moon ── */
 .moon-phase-display{display:flex;align-items:center;gap:18px}
 .moon-emoji{font-size:56px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.15))}
 .moon-info{display:flex;flex-direction:column;gap:4px}
@@ -102,9 +98,9 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backd
 .moon-day{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px;border-radius:8px;transition:background .2s}
 .moon-day.today{background:rgba(138,154,134,.18)}
 .moon-day-num{font-size:9px;color:var(--muted)}
-.moon-day-icon{font-size:13px;line-height:1} 
-  
-/* Grocery */
+.moon-day-icon{font-size:13px;line-height:1}
+
+/* ── Grocery ── */
 .ga-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);padding-bottom:6px}
 .gl{list-style:none;display:flex;flex-direction:column;gap:4px;max-height:195px;overflow-y:auto}
 .gi{display:flex;align-items:center;gap:8px;padding:3px 0}
@@ -113,14 +109,14 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backd
 .ck.on{background:var(--primary);border-color:var(--primary);color:#fff}
 .gf{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:7px}
 
-/* Appt */
+/* ── Appt ── */
 .aa{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
 .al{list-style:none;padding-left:17px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:2px;min-height:38px}
 .ai{position:relative;padding:5px 0;display:flex;align-items:center;gap:8px}
 .ad{position:absolute;left:-21px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px var(--surface)}
 .at{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--secondary)}
 
-/* Meditation */
+/* ── Meditation ── */
 .mc{display:flex;flex-direction:column;align-items:center;gap:13px}
 .mrw{position:relative;width:144px;height:144px;display:flex;align-items:center;justify-content:center}
 .mro,.mri{position:absolute;border-radius:50%;transition:transform 4s ease-in-out}
@@ -132,49 +128,65 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backd
 .dc{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
 .mb{display:flex;gap:8px}
 
-/* Water */
+/* ── Water ── */
 .wcr{display:flex;align-items:baseline;gap:6px}
 .wd{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .db{aspect-ratio:1;border-radius:10px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .3s}
 .db.on{background:rgba(138,154,134,.18);border-color:var(--primary)}
 .wf{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:7px}
 
-/* Charts */
-.chart-wrap{display:flex;flex-direction:column;gap:6px}
+/* ── Charts ── */
 .chart-bars{display:flex;align-items:flex-end;gap:5px;height:72px}
 .bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
-.bar{width:100%;border-radius:4px 4px 0 0;background:var(--primary);opacity:.75;transition:height .5s ease,opacity .3s;min-height:2px}
+.bar{width:100%;border-radius:4px 4px 0 0;background:var(--primary);opacity:.75;transition:height .5s ease;min-height:2px}
 .bar.today{opacity:1;background:var(--secondary)}
-.bar-lbl{font-size:9px;color:var(--muted);letter-spacing:.05em}
+.bar-lbl{font-size:9px;color:var(--muted)}
 .bar-val{font-size:9px;color:var(--muted)}
 
-/* Links */
-.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-.link-card{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--surface);text-decoration:none;color:var(--text);transition:all .25s;font-size:13px}
+/* ── Links ── */
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+.link-card{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--border);border-radius:14px;background:var(--surface);text-decoration:none;color:var(--text);transition:all .25s;font-size:13px}
 .link-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--card-shadow)}
 .link-icon{font-size:20px;flex-shrink:0;width:34px;height:34px;border-radius:10px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center}
 .link-label{font-size:12px;font-weight:400;line-height:1.3}
 .link-sub{font-size:10px;color:var(--muted);margin-top:1px}
 
-/* Blockquote */
-bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;color:var(--text)}
+/* ── Blockquote ── */
+.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;color:var(--text)}
 .pr{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--secondary);margin-top:3px}
 
-/* Sync modal */
+/* ── PDF Modal ── */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:var(--surface);border-radius:20px;padding:28px;max-width:420px;width:90%;display:flex;flex-direction:column;gap:16px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal{background:var(--surface);border-radius:20px;padding:26px;max-width:440px;width:92%;display:flex;flex-direction:column;gap:15px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
 .modal h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--text)}
-.modal p{font-size:13px;color:var(--muted);line-height:1.6}
-.code-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:monospace;font-size:13px;word-break:break-all;color:var(--text);max-height:120px;overflow-y:auto}
+.pdf-options{display:flex;flex-direction:column;gap:10px}
+.pdf-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;user-select:none}
+.pdf-opt:hover{border-color:var(--primary);background:var(--surface-alt)}
+.pdf-opt input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.pdf-opt-label{font-size:13px;color:var(--text)}
+.pdf-style-row{display:flex;gap:8px;flex-wrap:wrap}
+.style-chip{border:1px solid var(--border);border-radius:999px;padding:5px 14px;font-size:12px;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif}
+.style-chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
 .modal-btns{display:flex;gap:8px;flex-wrap:wrap}
-.modal input.il{font-size:13px}
 
-/* Toast */
+/* ── Toast ── */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:999px;font-size:13px;z-index:200;transition:transform .3s ease;pointer-events:none;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* Scrollbar */
+/* ── Print styles ── */
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:12px}
+  header,.hdr-controls,.no-print{display:none!important}
+  .print-only{display:block!important}
+  .card{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd!important;background:#fff!important;margin-bottom:12px}
+  .wrapper{padding:0 10px!important;max-width:100%!important}
+  .row{gap:8px!important;margin-bottom:8px!important}
+  .hero{padding:10px 0 8px!important}
+  .hero-g{font-size:26px!important}
+}
+.print-only{display:none}
+
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 *:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
 .footer{text-align:center;font-size:10px;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-top:38px}
@@ -343,35 +355,23 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
 </div>
 
 <div class="footer">· · ·</div>
-</div><!-- /wrapper -->
+</div>
 
-<!-- SYNC MODAL -->
-<div class="modal-bg" id="sync-modal">
+<!-- PDF MODAL -->
+<div class="modal-bg" id="pdf-modal">
 <div class="modal">
-  <h3 id="sync-modal-title" class="serif">Sync / Export</h3>
-  <p id="sync-modal-desc">Copy this code to share your data to another device, or paste a code from another device.</p>
-
-  <!-- Code block -->
-  <div class="code-box" id="sync-export-code" style="cursor:pointer" onclick="copyCode()" title="Click to copy"></div>
-
-  <!-- URL share section -->
-  <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:8px">
-    <p id="sync-link-desc" style="font-size:12px;color:var(--muted);line-height:1.5"></p>
-    <div style="display:flex;gap:6px;align-items:center">
-      <div class="code-box" id="sync-link-box" style="flex:1;font-size:11px;max-height:44px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer" onclick="copyLink()" title="Click to copy link"></div>
-      <button class="btn bp bsm" onclick="copyLink()" id="btn-share-link" style="flex-shrink:0">🔗 Copy link</button>
+  <h3 class="serif" id="pdf-modal-title">Print / PDF</h3>
+  <div class="pdf-options" id="pdf-options"></div>
+  <div>
+    <div class="overline" style="margin-bottom:8px" id="lbl-style">Style</div>
+    <div class="pdf-style-row">
+      <button class="style-chip on" id="style-beautiful" onclick="setPdfStyle('beautiful')" id="lbl-style-b">🌿 Beautiful</button>
+      <button class="style-chip" id="style-simple" onclick="setPdfStyle('simple')" id="lbl-style-s">📋 Simple</button>
     </div>
   </div>
-
-  <!-- Import -->
-  <div style="border-top:1px solid var(--border);padding-top:12px">
-    <input class="il" id="sync-import-input" placeholder="Paste sync code here…" style="font-size:12px"/>
-  </div>
-
   <div class="modal-btns">
-    <button class="btn bp bsm" onclick="copyCode()" id="btn-copy">📋 Copy</button>
-    <button class="btn bp bsm" onclick="importCode()" id="btn-import" style="background:var(--secondary)">📥 Import</button>
-    <button class="btn bs bsm" onclick="closeSync()" id="btn-close-sync">✕ Close</button>
+    <button class="btn bp bsm" onclick="doPrint()" id="btn-do-print">🖨️ Print / Save PDF</button>
+    <button class="btn bs bsm" onclick="closePDF()" id="btn-close-pdf">✕ Close</button>
   </div>
 </div>
 </div>
@@ -380,7 +380,9 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===================== TRANSLATIONS ===================== */
+/* ═══════════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════════ */
 const T={
 en:{
   appTitle:"Daily Companion",tagline:"Small rituals, gentle days",
@@ -397,7 +399,7 @@ en:{
   reset:"Reset",breatheIn:"Breathe in",breatheOut:"Breathe out",
   medDone:"Complete ✓",duration:"Duration",
   waterOver:"Hydration",waterTitle:"Water intake",glasses:"glasses",
-  goal:"Daily goal",wReset:"Reset",waterDone:"Hydrated 🌿",
+  goal:"Daily goal",wReset:"Reset",
   psalmOver:"Daily verse",psalmTitle:"Psalm of the day",
   morning:"Good morning",afternoon:"Good afternoon",evening:"Good evening",night:"Peaceful night",
   waterChart:"Water — 7 days",medChart:"Meditation — 7 days",
@@ -406,12 +408,6 @@ en:{
   moonPhases:{new:"New Moon",waxCres:"Waxing Crescent",firstQ:"First Quarter",waxGib:"Waxing Gibbous",full:"Full Moon",wanGib:"Waning Gibbous",lastQ:"Last Quarter",wanCres:"Waning Crescent"},
   moonIllum:"% illuminated",
   moonNextFull:"Next full moon in",moonNextNew:"Next new moon in",days:"days",moonToday:"today",
-  syncTitle:"Sync / Export",syncDesc:"Copy this code to import your data on another device. Paste a code from another device to import.",
-  btnCopy:"📋 Copy",btnImport:"📥 Import",btnClose:"✕ Close",
-  copied:"Copied to clipboard!",imported:"Data imported ✓",importErr:"Invalid sync code.",
-  syncBtn:"☁ Sync",
-  btnShareLink:"🔗 Copy link",linkCopied:"Shareable link copied! Send it to any device.",
-  syncLinkDesc:"Or share as a link — open it on another device to import automatically.",
   pdfTitle:"Print / PDF",pdfBtn:"🖨️ Print / PDF",
   pdfStyleLabel:"Style",pdfStyleBeautiful:"🌿 Beautiful",pdfStyleSimple:"📋 Simple",
   pdfPrint:"🖨️ Print / Save PDF",pdfClose:"✕ Close",
@@ -435,7 +431,7 @@ fr:{
   reset:"Réinitialiser",breatheIn:"Inspirez",breatheOut:"Expirez",
   medDone:"Terminé ✓",duration:"Durée",
   waterOver:"Eau du jour",waterTitle:"Hydratation",glasses:"verres",
-  goal:"Objectif",wReset:"Réinitialiser",waterDone:"Bien hydraté 🌿",
+  goal:"Objectif",wReset:"Réinitialiser",
   psalmOver:"Verset quotidien",psalmTitle:"Psaume du jour",
   morning:"Bonjour",afternoon:"Bon après-midi",evening:"Bonsoir",night:"Nuit paisible",
   waterChart:"Eau — 7 jours",medChart:"Méditation — 7 jours",
@@ -444,12 +440,6 @@ fr:{
   moonPhases:{new:"Nouvelle Lune",waxCres:"Croissant croissant",firstQ:"Premier Quartier",waxGib:"Gibbeuse croissante",full:"Pleine Lune",wanGib:"Gibbeuse décroissante",lastQ:"Dernier Quartier",wanCres:"Croissant décroissant"},
   moonIllum:"% illuminé",
   moonNextFull:"Prochaine pleine lune dans",moonNextNew:"Prochaine nouvelle lune dans",days:"jours",moonToday:"aujourd'hui",
-  syncTitle:"Synchronisation",syncDesc:"Copiez ce code pour importer vos données sur un autre appareil. Collez un code provenant d'un autre appareil pour importer.",
-  btnCopy:"📋 Copier",btnImport:"📥 Importer",btnClose:"✕ Fermer",
-  copied:"Copié dans le presse-papiers !",imported:"Données importées ✓",importErr:"Code invalide.",
-  syncBtn:"☁ Sync",
-  btnShareLink:"🔗 Copier le lien",linkCopied:"Lien copiable copié ! Ouvrez-le sur un autre appareil.",
-  syncLinkDesc:"Ou partagez comme lien — ouvrez-le sur un autre appareil pour importer automatiquement.",
   pdfTitle:"Imprimer / PDF",pdfBtn:"🖨️ Imprimer / PDF",
   pdfStyleLabel:"Style",pdfStyleBeautiful:"🌿 Élégant",pdfStyleSimple:"📋 Sobre",
   pdfPrint:"🖨️ Imprimer / Sauver PDF",pdfClose:"✕ Fermer",
@@ -459,27 +449,27 @@ fr:{
   },
 }};
 
-/* ===================== DAILY CONTENT ===================== */
+/* ═══════════════════════════════════════════
+   DAILY CONTENT
+═══════════════════════════════════════════ */
 const AFFIRMATIONS={
 en:["I am exactly where I need to be today.","My energy is calm, focused, and abundant.","Every breath returns me to the present moment.","I welcome this day with an open heart.","Small steps today shape a beautiful tomorrow.","Peace begins the moment I choose it.","I am worthy of rest, joy, and slow mornings.","I release what I cannot control.","Joy lives in the smallest details.","Today I choose curiosity over fear.","Gratitude turns ordinary days into gifts.","I trust the goodness inside me.","Today is allowed to be soft.","I am the gardener of my own peace.","My worth is not measured in productivity.","I carry quiet light wherever I go.","My intuition is a trusted compass.","Slow is also a form of progress.","I make space for what truly matters.","Today, kindness is my first language.","My breath is a doorway home.","Hope is a quiet, patient muscle.","I notice the light, even on grey days.","I honor my needs without apology.","I trust the unfolding of my own path.","I am rooted, like a tree in a quiet field.","I deserve mornings that feel like prayer.","My presence is a quiet kind of strength.","I am allowed to begin again, gently.","I move at the speed of my own breath.","I welcome this day as a gift."],
 fr:["Je suis exactement où je dois être aujourd'hui.","Mon énergie est calme, concentrée et abondante.","Chaque respiration me ramène à l'instant présent.","J'accueille ce jour le cœur ouvert.","Les petits pas d'aujourd'hui dessinent un beau demain.","La paix commence dès l'instant où je la choisis.","Je mérite le repos, la joie et les matinées lentes.","Je relâche ce que je ne peux pas contrôler.","La joie habite les plus petits détails.","Aujourd'hui je choisis la curiosité plutôt que la peur.","La gratitude transforme les jours ordinaires en cadeaux.","Je fais confiance à la bonté qui m'habite.","Aujourd'hui a le droit d'être doux.","Je suis le jardinier de ma propre paix.","Ma valeur ne se mesure pas à ma productivité.","Je porte une lumière douce partout où je vais.","Mon intuition est une boussole fiable.","La lenteur est aussi une forme de progrès.","Je fais de la place pour ce qui compte vraiment.","Aujourd'hui, la bienveillance est ma première langue.","Mon souffle est une porte vers chez moi.","L'espoir est un muscle calme et patient.","Je remarque la lumière, même les jours gris.","J'honore mes besoins sans m'excuser.","Je fais confiance au chemin qui se déploie devant moi.","Je suis enraciné, comme un arbre dans un champ paisible.","Je mérite des matins qui ressemblent à une prière.","Ma présence est une force tranquille.","J'ai le droit de recommencer, en douceur.","J'avance au rythme de mon propre souffle.","J'accueille ce jour comme un cadeau."]
 };
-
 const PSALMS={
 en:[{t:"The Lord is my shepherd; I shall not want.",r:"Psalm 23:1"},{t:"Be still, and know that I am God.",r:"Psalm 46:10"},{t:"This is the day the Lord has made; let us rejoice and be glad in it.",r:"Psalm 118:24"},{t:"Taste and see that the Lord is good.",r:"Psalm 34:8"},{t:"My help comes from the Lord, the Maker of heaven and earth.",r:"Psalm 121:2"},{t:"May the words of my mouth and the meditation of my heart be pleasing in your sight.",r:"Psalm 19:14"},{t:"I praise you because I am fearfully and wonderfully made.",r:"Psalm 139:14"},{t:"Create in me a clean heart, O God, and renew a right spirit within me.",r:"Psalm 51:10"},{t:"In your presence there is fullness of joy.",r:"Psalm 16:11"},{t:"Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty.",r:"Psalm 91:1"},{t:"Be still before the Lord and wait patiently for him.",r:"Psalm 37:7"},{t:"Weeping may stay for the night, but rejoicing comes in the morning.",r:"Psalm 30:5"},{t:"Truly my soul finds rest in God; my salvation comes from him.",r:"Psalm 62:1"},{t:"Enter his gates with thanksgiving and his courts with praise.",r:"Psalm 100:4"},{t:"The Lord is near to all who call on him in truth.",r:"Psalm 145:18"},{t:"God is the strength of my heart and my portion forever.",r:"Psalm 73:26"},{t:"I keep my eyes always on the Lord.",r:"Psalm 16:8"},{t:"You, Lord, are forgiving and good, abounding in love.",r:"Psalm 86:5"},{t:"As the deer pants for streams of water, so my soul pants for you, my God.",r:"Psalm 42:1"},{t:"In peace I will lie down and sleep.",r:"Psalm 4:8"},{t:"The Lord is my light and my salvation; whom shall I fear?",r:"Psalm 27:1"}],
-fr:[{t:"L'Éternel est mon berger : je ne manquerai de rien.",r:"Psaume 23:1"},{t:"Arrêtez, et sachez que je suis Dieu.",r:"Psaume 46:10"},{t:"C'est ici la journée que l'Éternel a faite.",r:"Psaume 118:24"},{t:"Goûtez et voyez combien l'Éternel est bon.",r:"Psaume 34:8"},{t:"Mon secours vient de l'Éternel, qui a fait les cieux et la terre.",r:"Psaume 121:2"},{t:"Reçois favorablement les paroles de ma bouche et les sentiments de mon cœur.",r:"Psaume 19:14"},{t:"Je te loue de ce que je suis une créature si merveilleuse.",r:"Psaume 139:14"},{t:"Ô Dieu ! crée en moi un cœur pur.",r:"Psaume 51:10"},{t:"Il y a d'abondantes joies devant ta face.",r:"Psaume 16:11"},{t:"Celui qui demeure sous l'abri du Très-Haut repose à l'ombre du Tout-Puissant.",r:"Psaume 91:1"},{t:"Garde le silence devant l'Éternel, et espère en lui.",r:"Psaume 37:7"},{t:"Le soir arrivent les pleurs, et le matin l'allégresse.",r:"Psaume 30:5"},{t:"C'est en Dieu que mon âme se confie ; de lui vient mon salut.",r:"Psaume 62:1"},{t:"Entrez dans ses portes avec des louanges.",r:"Psaume 100:4"},{t:"L'Éternel est près de tous ceux qui l'invoquent en vérité.",r:"Psaume 145:18"},{t:"Dieu sera toujours le rocher de mon cœur.",r:"Psaume 73:26"},{t:"J'ai constamment l'Éternel sous mes yeux.",r:"Psaume 16:8"},{t:"Car tu es bon, Seigneur, tu pardonnes, tu es plein d'amour.",r:"Psaume 86:5"},{t:"Comme une biche soupire après des courants d'eau, ainsi mon âme soupire après toi.",r:"Psaume 42:1"},{t:"Je me couche et je m'endors en paix.",r:"Psaume 4:8"},{t:"L'Éternel est ma lumière et mon salut.",r:"Psaume 27:1"}]
+fr:[{t:"L'Éternel est mon berger : je ne manquerai de rien.",r:"Psaume 23:1"},{t:"Arrêtez, et sachez que je suis Dieu.",r:"Psaume 46:10"},{t:"C'est ici la journée que l'Éternel a faite.",r:"Psaume 118:24"},{t:"Goûtez et voyez combien l'Éternel est bon.",r:"Psaume 34:8"},{t:"Mon secours vient de l'Éternel.",r:"Psaume 121:2"},{t:"Reçois favorablement les paroles de ma bouche et les sentiments de mon cœur.",r:"Psaume 19:14"},{t:"Je te loue de ce que je suis une créature si merveilleuse.",r:"Psaume 139:14"},{t:"Ô Dieu ! crée en moi un cœur pur.",r:"Psaume 51:10"},{t:"Il y a d'abondantes joies devant ta face.",r:"Psaume 16:11"},{t:"Celui qui demeure sous l'abri du Très-Haut repose à l'ombre du Tout-Puissant.",r:"Psaume 91:1"},{t:"Garde le silence devant l'Éternel, et espère en lui.",r:"Psaume 37:7"},{t:"Le soir arrivent les pleurs, et le matin l'allégresse.",r:"Psaume 30:5"},{t:"C'est en Dieu que mon âme se confie.",r:"Psaume 62:1"},{t:"Entrez dans ses portes avec des louanges.",r:"Psaume 100:4"},{t:"L'Éternel est près de tous ceux qui l'invoquent en vérité.",r:"Psaume 145:18"},{t:"Dieu sera toujours le rocher de mon cœur.",r:"Psaume 73:26"},{t:"J'ai constamment l'Éternel sous mes yeux.",r:"Psaume 16:8"},{t:"Car tu es bon, Seigneur, tu pardonnes, tu es plein d'amour.",r:"Psaume 86:5"},{t:"Comme une biche soupire après des courants d'eau, ainsi mon âme soupire après toi.",r:"Psaume 42:1"},{t:"Je me couche et je m'endors en paix.",r:"Psaume 4:8"},{t:"L'Éternel est ma lumière et mon salut.",r:"Psaume 27:1"}]
 };
-
 const WMO={0:{en:"Clear sky",fr:"Ciel clair",i:"☀️"},1:{en:"Mainly clear",fr:"Plutôt clair",i:"🌤️"},2:{en:"Partly cloudy",fr:"Partiellement nuageux",i:"⛅"},3:{en:"Overcast",fr:"Couvert",i:"☁️"},45:{en:"Fog",fr:"Brouillard",i:"🌫️"},48:{en:"Icy fog",fr:"Brouillard givrant",i:"🌫️"},51:{en:"Light drizzle",fr:"Bruine légère",i:"🌦️"},53:{en:"Drizzle",fr:"Bruine",i:"🌦️"},55:{en:"Heavy drizzle",fr:"Bruine forte",i:"🌦️"},61:{en:"Light rain",fr:"Pluie légère",i:"🌧️"},63:{en:"Rain",fr:"Pluie",i:"🌧️"},65:{en:"Heavy rain",fr:"Pluie forte",i:"🌧️"},71:{en:"Light snow",fr:"Neige légère",i:"🌨️"},73:{en:"Snow",fr:"Neige",i:"❄️"},75:{en:"Heavy snow",fr:"Neige forte",i:"❄️"},80:{en:"Showers",fr:"Averses",i:"🌦️"},81:{en:"Heavy showers",fr:"Fortes averses",i:"🌧️"},95:{en:"Thunderstorm",fr:"Orage",i:"⛈️"}};
-
 const LINKS=[
   {url:"https://nanciedee.github.io/My1Prayer",icon:"🙏",label:{en:"My 1 Prayer",fr:"Ma 1ère Prière"},sub:{en:"Daily prayer",fr:"Prière quotidienne"}},
   {url:"https://nanciedee.github.io/CardDraw/",icon:"🃏",label:{en:"Card Draw",fr:"Tirage de cartes"},sub:{en:"Oracle cards",fr:"Cartes oracle"}},
   {url:"https://nanciedee.github.io/MonOracle2026/",icon:"✨",label:{en:"Oracle 2026",fr:"Mon Oracle 2026"},sub:{en:"Year guidance",fr:"Guidance annuelle"}},
   {url:"https://nanciedee.github.io/Bible2moi",icon:"📖",label:{en:"Bible 2 Moi",fr:"Bible 2 Moi"},sub:{en:"Personal Bible",fr:"Bible personnelle"}},
   {url:"https://nanciedee.github.io/neuvaines2moi",icon:"🕯️",label:{en:"Neuvaines",fr:"Neuvaines"},sub:{en:"Novena prayers",fr:"Prières de neuvaine"}},
-  {url:"https://nanciedee.github.io/Qceqonmange/planning.html",icon:"🍽️",label:{en:"Meal Planner",fr:"Gestion Repas"},sub:{en:"Meal planning",fr:"Planification repas"}}
+  {url:"https://nanciedee.github.io/Gestion-Repas",icon:"🍽️",label:{en:"Meal Planner",fr:"Gestion Repas"},sub:{en:"Meal planning",fr:"Planification repas"}}
 ];
+
 /* ═══════════════════════════════════════════
    MOON CALCULATION (Jean Meeus algorithm)
    Known new moon anchor: Jan 6 2000 18:14 UTC
@@ -585,28 +575,31 @@ function renderMoon(){
   }
   cal.innerHTML=html;
 }
-  
-/* ===================== STATE ===================== */
+
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
 let lang=localStorage.getItem('dc_lang')||'en';
 let savedCities=JSON.parse(localStorage.getItem('dc_cities')||'[]');
 let defaultCity=localStorage.getItem('dc_default_city')||'';
 let grocItems=JSON.parse(localStorage.getItem('dc_grocery')||'[]');
 let apptItems=JSON.parse(localStorage.getItem('dc_appts')||'[]');
-let themeMode=localStorage.getItem('dc_theme')||'auto'; // 'auto'|'dark'|'light'
-let medRunning=false,medRemain=300,medDuration=5,medInterval=null,medPhaseInterval=null,medPhase='in';
+let themeMode=localStorage.getItem('dc_theme')||'auto';
+let medRunning=false,medRemain=300,medDuration=5,medInterval=null,medPhaseInterval=null;
+let pdfStyle='beautiful';
 
 const dateKey=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const todayKey=()=>'dc_water_'+dateKey();
 let waterCount=parseInt(localStorage.getItem(todayKey())||'0');
 
-/* ===================== HELPERS ===================== */
 const $=id=>document.getElementById(id);
 const s=(id,txt)=>{const el=$(id);if(el)el.textContent=txt;};
 const t=k=>T[lang][k]||k;
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2600);}
 
-function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
-
-/* ===================== THEME ===================== */
+/* ═══════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════ */
 function applyTheme(){
   const h=new Date().getHours();
   const isDark=themeMode==='dark'||(themeMode==='auto'&&(h>=19||h<7));
@@ -614,18 +607,17 @@ function applyTheme(){
   $('theme-btn').textContent=isDark?'☀️':'🌙';
 }
 function toggleThemeManual(){
-  const h=new Date().getHours();
   const isDark=document.body.classList.contains('dark');
-  // If auto would give dark and we're dark → switch to light; else switch to dark
   themeMode=isDark?'light':'dark';
   localStorage.setItem('dc_theme',themeMode);
   applyTheme();
 }
-// Re-check theme every minute for auto-switching
 applyTheme();
-setInterval(()=>{ if(themeMode==='auto') applyTheme(); },60000);
+setInterval(()=>{if(themeMode==='auto')applyTheme();},60000);
 
-/* ===================== LANGUAGE ===================== */
+/* ═══════════════════════════════════════════
+   LANGUAGE
+═══════════════════════════════════════════ */
 function setLang(l){
   lang=l;localStorage.setItem('dc_lang',l);
   $('btn-en').className='pb'+(l==='en'?' on':'');
@@ -653,17 +645,19 @@ function updateAllUI(){
   s('lbl-psalm-over',t('psalmOver'));s('lbl-psalm-title',t('psalmTitle'));
   s('lbl-water-chart',t('waterChart'));s('lbl-med-chart',t('medChart'));
   s('lbl-links-title',t('myPages'));
-  s('sync-btn-lbl',t('syncBtn'));
-  s('sync-modal-title',t('syncTitle'));s('sync-modal-desc',t('syncDesc'));
-  s('btn-copy',t('btnCopy'));s('btn-import',t('btnImport'));s('btn-close-sync',t('btnClose'));
-  s('btn-share-link',t('btnShareLink'));s('sync-link-desc',t('syncLinkDesc'));
-  $('sync-import-input').placeholder=lang==='fr'?'Collez le code ici…':'Paste sync code here…';
+  s('lbl-pdf-btn',t('pdfBtn').replace('🖨️ ',''));
+  s('pdf-modal-title',t('pdfTitle'));
+  s('btn-do-print',t('pdfPrint'));s('btn-close-pdf',t('pdfClose'));
+  s('style-beautiful',t('pdfStyleBeautiful'));s('style-simple',t('pdfStyleSimple'));
+  s('lbl-style',t('pdfStyleLabel'));
   updateHero();updateAffirmation();updatePsalm();renderMoon();
   renderAppts();renderGrocery();updateSavedCitiesUI();renderCharts();renderLinks();
   renderPDFOptions();
 }
 
-/* ===================== HERO ===================== */
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
 function updateHero(){
   const now=new Date();const h=now.getHours();
   const greet=h<12?t('morning'):h<17?t('afternoon'):h<21?t('evening'):t('night');
@@ -671,7 +665,9 @@ function updateHero(){
   $('hero-date').textContent=now.toLocaleDateString(lang==='fr'?'fr-CA':'en-CA',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 }
 
-/* ===================== AFFIRMATION & PSALM ===================== */
+/* ═══════════════════════════════════════════
+   AFFIRMATION & PSALM
+═══════════════════════════════════════════ */
 function updateAffirmation(){
   const idx=new Date().getDate()%AFFIRMATIONS[lang].length;
   $('affirm-text').textContent=`"${AFFIRMATIONS[lang][idx]}"`;
@@ -683,7 +679,9 @@ function updatePsalm(){
   $('psalm-ref').textContent=`— ${p.r}`;
 }
 
-/* ===================== WEATHER ===================== */
+/* ═══════════════════════════════════════════
+   WEATHER
+═══════════════════════════════════════════ */
 function showWeatherData(data,cityName){
   const c=data.current;const desc=WMO[c.weather_code]||{en:'—',fr:'—',i:'🌡️'};
   $('weather-display').innerHTML=`
@@ -704,34 +702,84 @@ function showWeatherData(data,cityName){
       <div><div class="wsl">${t('wind')}</div><div class="wsv">${Math.round(c.wind_speed_10m)} km/h</div></div>
     </div>`;
 }
+// Safe fetch with timeout using AbortController (works in all browsers)
+function fetchWithTimeout(url, ms){
+  const ctrl=new AbortController();
+  const id=setTimeout(()=>ctrl.abort(),ms);
+  return fetch(url,{signal:ctrl.signal}).finally(()=>clearTimeout(id));
+}
+
+function showWeatherPrompt(){
+  const ph=lang==='fr'?'ex : Montréal, Paris, Lyon…':'e.g. Montréal, Paris, London…';
+  $('weather-display').innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <p style="font-size:12px;color:var(--muted);font-style:italic">
+        ${lang==='fr'?'Localisation automatique indisponible.':'Automatic location unavailable.'}
+      </p>
+      <p style="font-size:12px;color:var(--muted)">
+        ${lang==='fr'?'Tapez votre ville dans la barre ci-dessus et appuyez Entrée.':'Type your city in the search bar above and press Enter.'}
+      </p>
+      <p style="font-size:11px;color:var(--muted);opacity:.65">${ph}</p>
+    </div>`;
+}
 
 async function fetchWeatherCoords(lat,lon,cityName){
   $('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('locating')}</div>`;
   try{
-    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`);
-    const data=await r.json();showWeatherData(data,cityName);
-  }catch{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;}
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`;
+    const r=await fetchWithTimeout(url,10000);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    if(!data.current) throw new Error('no data');
+    showWeatherData(data,cityName);
+  }catch(e){
+    $('weather-display').innerHTML=`
+      <div style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:5px">${t('weatherErr')}</div>
+      <div style="font-size:11px;color:var(--muted)">
+        ${lang==='fr'?'Essayez de rechercher votre ville manuellement.':'Try searching your city manually above.'}
+      </div>`;
+  }
 }
 
 async function fetchWeatherByCity(){
-  const city=$('city-input').value.trim();if(!city)return;
+  const city=$('city-input').value.trim();
+  if(!city)return;
   $('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('locating')}</div>`;
   try{
-    const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=${lang}`);
+    const geoUrl=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=${lang}`;
+    const r=await fetchWithTimeout(geoUrl,10000);
+    if(!r.ok) throw new Error('HTTP '+r.status);
     const d=await r.json();
-    if(!d.results||!d.results[0]){$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;return;}
+    if(!d.results||!d.results[0]){
+      $('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">
+        ${lang==='fr'?'Ville introuvable. Essayez un nom différent.':'City not found. Try a different spelling.'}
+      </div>`;
+      return;
+    }
     const res=d.results[0];
     const label=`${res.name}${res.admin1?', '+res.admin1:''}, ${res.country}`;
     await fetchWeatherCoords(res.latitude,res.longitude,label);
-    if(!savedCities.find(c=>c.name===label)){savedCities.push({name:label,lat:res.latitude,lon:res.longitude});localStorage.setItem('dc_cities',JSON.stringify(savedCities));}
-    updateSavedCitiesUI();$('city-input').value='';
-  }catch{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;}
+    if(!savedCities.find(c=>c.name===label)){
+      savedCities.push({name:label,lat:res.latitude,lon:res.longitude});
+      localStorage.setItem('dc_cities',JSON.stringify(savedCities));
+    }
+    updateSavedCitiesUI();
+    $('city-input').value='';
+  }catch(e){
+    $('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">
+      ${lang==='fr'?'Erreur réseau. Vérifiez votre connexion.':'Network error. Check your connection.'}
+    </div>`;
+  }
 }
 
 function loadCity(i){fetchWeatherCoords(savedCities[i].lat,savedCities[i].lon,savedCities[i].name);}
 function setDefaultCity(name){defaultCity=name;localStorage.setItem('dc_default_city',name);updateSavedCitiesUI();}
-function removeCity(name){savedCities=savedCities.filter(c=>c.name!==name);localStorage.setItem('dc_cities',JSON.stringify(savedCities));if(defaultCity===name){defaultCity='';localStorage.removeItem('dc_default_city');}updateSavedCitiesUI();}
-
+function removeCity(name){
+  savedCities=savedCities.filter(c=>c.name!==name);
+  localStorage.setItem('dc_cities',JSON.stringify(savedCities));
+  if(defaultCity===name){defaultCity='';localStorage.removeItem('dc_default_city');}
+  updateSavedCitiesUI();
+}
 function updateSavedCitiesUI(){
   const row=$('saved-cities-row');
   if(!savedCities.length){row.innerHTML='';return;}
@@ -744,23 +792,46 @@ function updateSavedCitiesUI(){
 }
 
 function initWeather(){
-  if(defaultCity){const c=savedCities.find(x=>x.name===defaultCity);if(c){loadCity(savedCities.indexOf(c));return;}}
+  // 1. Saved default city → load it directly, no geolocation needed
+  if(defaultCity){
+    const c=savedCities.find(x=>x.name===defaultCity);
+    if(c){loadCity(savedCities.indexOf(c));return;}
+  }
+  // 2. Any saved city → use the first one
   if(savedCities.length){loadCity(0);return;}
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(async pos=>{
-      let city='';
-      try{const g=await fetch(`https://geocoding-api.open-meteo.com/v1/reverse?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&language=${lang}`);const gd=await g.json();city=gd?.results?.[0]?.name||'';}catch{}
-      fetchWeatherCoords(pos.coords.latitude,pos.coords.longitude,city);
-    },()=>{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('denied')}</div>`;},{timeout:8000,maximumAge:600000});
-  }else{$('weather-display').innerHTML=`<div style="font-size:12px;color:var(--muted);font-style:italic">${t('weatherErr')}</div>`;}
+  // 3. Try geolocation — gracefully skip if blocked by permissions policy
+  try{
+    if(!navigator.geolocation){showWeatherPrompt();return;}
+    navigator.geolocation.getCurrentPosition(
+      async pos=>{
+        // Reverse geocode without AbortSignal to avoid DataCloneError
+        let city='';
+        try{
+          const g=await fetchWithTimeout(
+            `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&language=${lang}`,
+            6000
+          );
+          const gd=await g.json();
+          city=gd?.results?.[0]?.name||'';
+        }catch{}
+        fetchWeatherCoords(pos.coords.latitude,pos.coords.longitude,city);
+      },
+      ()=>showWeatherPrompt(),   // denied or blocked → show search prompt
+      {timeout:7000,maximumAge:600000,enableHighAccuracy:false}
+    );
+  }catch(e){
+    // permissions policy throws synchronously in some browsers
+    showWeatherPrompt();
+  }
 }
 
-/* ===================== MEDITATION ===================== */
+/* ═══════════════════════════════════════════
+   MEDITATION
+═══════════════════════════════════════════ */
 const DURS=[3,5,10,15,20];
 function renderDurChips(){$('dur-chips').innerHTML=DURS.map(d=>`<button class="chip${d===medDuration?' on':''}" onclick="setDur(${d})">${d} min</button>`).join('');}
 function setDur(d){if(medRunning)return;medDuration=d;medRemain=d*60;renderDurChips();updateMedTimer();}
 function updateMedTimer(){const mm=String(Math.floor(medRemain/60)).padStart(2,'0');const ss=String(medRemain%60).padStart(2,'0');s('med-timer',`${mm}:${ss}`);}
-
 function medStart(){
   if(medRunning){
     medRunning=false;clearInterval(medInterval);clearInterval(medPhaseInterval);
@@ -769,12 +840,12 @@ function medStart(){
   }
   if(medRemain<=0)return;
   medRunning=true;s('lbl-begin',t('pause'));
-  let pe=0;
+  let pe=0,phase='in';
   medPhaseInterval=setInterval(()=>{
-    pe=(pe+1)%8;medPhase=pe<4?'in':'out';
-    $('mro').style.transform=medPhase==='in'?'scale(1.35)':'scale(0.9)';
-    $('mri').style.transform=medPhase==='in'?'scale(1.2)':'scale(0.92)';
-    s('med-phase',medPhase==='in'?t('breatheIn'):t('breatheOut'));
+    pe=(pe+1)%8;phase=pe<4?'in':'out';
+    $('mro').style.transform=phase==='in'?'scale(1.35)':'scale(0.9)';
+    $('mri').style.transform=phase==='in'?'scale(1.2)':'scale(0.92)';
+    s('med-phase',phase==='in'?t('breatheIn'):t('breatheOut'));
   },1000);
   medInterval=setInterval(()=>{
     medRemain--;updateMedTimer();
@@ -782,16 +853,12 @@ function medStart(){
       clearInterval(medInterval);clearInterval(medPhaseInterval);
       medRunning=false;s('lbl-begin',t('begin'));s('med-phase',t('medDone'));
       $('mro').style.transform='scale(1)';$('mri').style.transform='scale(1)';
-      // Save today's meditation minutes
-      const done=medDuration;
       const key='dc_med_'+dateKey();
-      const prev=parseInt(localStorage.getItem(key)||'0');
-      localStorage.setItem(key,prev+done);
+      localStorage.setItem(key,(parseInt(localStorage.getItem(key)||'0')+medDuration));
       renderCharts();
     }
   },1000);
 }
-
 function medReset(){
   clearInterval(medInterval);clearInterval(medPhaseInterval);
   medRunning=false;medRemain=medDuration*60;
@@ -799,7 +866,9 @@ function medReset(){
   $('mro').style.transform='scale(1)';$('mri').style.transform='scale(1)';
 }
 
-/* ===================== GROCERY ===================== */
+/* ═══════════════════════════════════════════
+   GROCERY
+═══════════════════════════════════════════ */
 function renderGrocery(){
   const ul=$('groc-list');const done=grocItems.filter(i=>i.done).length;
   if(!grocItems.length){ul.innerHTML=`<li style="font-style:italic;color:var(--muted);font-size:12px;padding:8px 0">${lang==='fr'?'Votre liste est vide.':'Your list is clear.'}</li>`;$('groc-footer').innerHTML='';return;}
@@ -817,7 +886,9 @@ function removeGroc(id){grocItems=grocItems.filter(i=>i.id!==id);saveGrocery();r
 function clearDoneGroc(){grocItems=grocItems.filter(i=>!i.done);saveGrocery();renderGrocery();}
 function saveGrocery(){localStorage.setItem('dc_grocery',JSON.stringify(grocItems));}
 
-/* ===================== APPOINTMENTS ===================== */
+/* ═══════════════════════════════════════════
+   APPOINTMENTS
+═══════════════════════════════════════════ */
 function renderAppts(){
   const ul=$('appt-list');
   if(!apptItems.length){ul.innerHTML=`<li style="font-style:italic;color:var(--muted);font-size:12px;padding:8px 0">${t('apptEmpty')}</li>`;return;}
@@ -832,145 +903,42 @@ function renderAppts(){
 function addAppt(){const txt=$('appt-text').value.trim();if(!txt)return;const time=$('appt-time').value;apptItems.push({id:Date.now()+'',text:txt,time});apptItems.sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));$('appt-text').value='';$('appt-time').value='';localStorage.setItem('dc_appts',JSON.stringify(apptItems));renderAppts();}
 function removeAppt(id){apptItems=apptItems.filter(i=>i.id!==id);localStorage.setItem('dc_appts',JSON.stringify(apptItems));renderAppts();}
 
-/* ===================== WATER ===================== */
+/* ═══════════════════════════════════════════
+   WATER
+═══════════════════════════════════════════ */
 function renderWater(){
   s('water-count',waterCount);
   $('water-drops').innerHTML=Array.from({length:8},(_,i)=>`<button class="db${i<waterCount?' on':''}" onclick="toggleDrop(${i})" aria-label="glass ${i+1}">${i<waterCount?'💧':'○'}</button>`).join('');
 }
-function toggleDrop(i){waterCount=(i+1===waterCount)?i:i+1;saveWater();renderWater();}
-function resetWater(){waterCount=0;saveWater();renderWater();}
-function saveWater(){localStorage.setItem(todayKey(),waterCount);renderCharts();}
+function toggleDrop(i){waterCount=(i+1===waterCount)?i:i+1;localStorage.setItem(todayKey(),waterCount);renderWater();renderCharts();}
+function resetWater(){waterCount=0;localStorage.setItem(todayKey(),0);renderWater();renderCharts();}
 
-/* ===================== CHARTS ===================== */
-function getLast7Dates(){
-  return Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return d;});
-}
+/* ═══════════════════════════════════════════
+   CHARTS
+═══════════════════════════════════════════ */
+function getLast7(){return Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return d;});}
 function renderCharts(){
-  const days=getLast7Dates();
-  const dayNames={en:['Su','Mo','Tu','We','Th','Fr','Sa'],fr:['Di','Lu','Ma','Me','Je','Ve','Sa']};
-  const names=dayNames[lang];
+  const days=getLast7();
+  const names={en:['Su','Mo','Tu','We','Th','Fr','Sa'],fr:['Di','Lu','Ma','Me','Je','Ve','Sa']}[lang];
   const todayStr=dateKey();
-
-  // Water (goal 8)
-  const wData=days.map(d=>({v:parseInt(localStorage.getItem('dc_water_'+dateKey(d))||'0'),isToday:dateKey(d)===todayStr,name:names[d.getDay()]}));
+  const wData=days.map(d=>({v:parseInt(localStorage.getItem('dc_water_'+dateKey(d))||'0'),today:dateKey(d)===todayStr,n:names[d.getDay()]}));
   const wMax=Math.max(8,...wData.map(x=>x.v));
-  $('water-chart').innerHTML=wData.map(d=>`
-    <div class="bar-col">
-      <div class="bar-val">${d.v>0?d.v:''}</div>
-      <div class="bar${d.isToday?' today':''}" style="height:${Math.max(4,Math.round((d.v/wMax)*60))}px"></div>
-      <div class="bar-lbl">${d.name}</div>
-    </div>`).join('');
-
-  // Meditation (max possible per day ~60 min)
-  const mData=days.map(d=>({v:parseInt(localStorage.getItem('dc_med_'+dateKey(d))||'0'),isToday:dateKey(d)===todayStr,name:names[d.getDay()]}));
+  $('water-chart').innerHTML=wData.map(d=>`<div class="bar-col"><div class="bar-val">${d.v||''}</div><div class="bar${d.today?' today':''}" style="height:${Math.max(3,Math.round(d.v/wMax*60))}px"></div><div class="bar-lbl">${d.n}</div></div>`).join('');
+  const mData=days.map(d=>({v:parseInt(localStorage.getItem('dc_med_'+dateKey(d))||'0'),today:dateKey(d)===todayStr,n:names[d.getDay()]}));
   const mMax=Math.max(5,...mData.map(x=>x.v));
-  $('med-chart').innerHTML=mData.map(d=>`
-    <div class="bar-col">
-      <div class="bar-val">${d.v>0?d.v:''}</div>
-      <div class="bar${d.isToday?' today':''}" style="height:${Math.max(4,Math.round((d.v/mMax)*60))}px;background:var(--secondary)"></div>
-      <div class="bar-lbl">${d.name}</div>
-    </div>`).join('');
+  $('med-chart').innerHTML=mData.map(d=>`<div class="bar-col"><div class="bar-val">${d.v||''}</div><div class="bar${d.today?' today':''}" style="height:${Math.max(3,Math.round(d.v/mMax*60))}px;background:var(--secondary)"></div><div class="bar-lbl">${d.n}</div></div>`).join('');
 }
 
-/* ===================== LINKS ===================== */
+/* ═══════════════════════════════════════════
+   LINKS
+═══════════════════════════════════════════ */
 function renderLinks(){
   $('links-grid').innerHTML=LINKS.map(l=>`
     <a class="link-card" href="${l.url}" target="_blank" rel="noopener noreferrer">
       <div class="link-icon">${l.icon}</div>
-      <div>
-        <div class="link-label">${l.label[lang]}</div>
-        <div class="link-sub">${l.sub[lang]}</div>
-      </div>
+      <div><div class="link-label">${l.label[lang]}</div><div class="link-sub">${l.sub[lang]}</div></div>
     </a>`).join('');
 }
-
-/* ===================== SYNC ===================== */
-function getSyncPayload(){
-  return btoa(unescape(encodeURIComponent(JSON.stringify({
-    v:1,
-    grocery:grocItems,
-    appts:apptItems,
-    cities:savedCities,
-    defaultCity,
-    lang,
-    water:{[dateKey()]:waterCount},
-  }))));
-}
-
-function getShareURL(){
-  const base=window.location.href.split('?')[0].split('#')[0];
-  return `${base}?sync=${encodeURIComponent(getSyncPayload())}`;
-}
-
-function openSync(){
-  const payload=getSyncPayload();
-  $('sync-export-code').textContent=payload;
-  $('sync-link-box').textContent=getShareURL();
-  $('sync-import-input').value='';
-  // update translated labels
-  s('sync-link-desc',t('syncLinkDesc'));
-  s('btn-share-link',t('btnShareLink'));
-  s('sync-modal-title',t('syncTitle'));
-  s('sync-modal-desc',t('syncDesc'));
-  s('btn-copy',t('btnCopy'));
-  s('btn-import',t('btnImport'));
-  s('btn-close-sync',t('btnClose'));
-  $('sync-import-input').placeholder=lang==='fr'?'Collez le code ici…':'Paste sync code here…';
-  $('sync-modal').classList.add('open');
-}
-function closeSync(){$('sync-modal').classList.remove('open');}
-
-async function copyCode(){
-  const code=$('sync-export-code').textContent;
-  try{await navigator.clipboard.writeText(code);}catch{const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
-  toast(t('copied'));
-}
-
-async function copyLink(){
-  const url=getShareURL();
-  try{await navigator.clipboard.writeText(url);}catch{const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
-  toast(t('linkCopied'));
-}
-
-function importCode(){
-  const raw=$('sync-import-input').value.trim();
-  if(!raw){toast(t('importErr'));return;}
-  applyImport(raw);
-}
-
-function applyImport(raw){
-  try{
-    const data=JSON.parse(decodeURIComponent(escape(atob(raw))));
-    if(!data.v)throw new Error('bad');
-    if(data.grocery){grocItems=data.grocery;saveGrocery();}
-    if(data.appts){apptItems=data.appts;localStorage.setItem('dc_appts',JSON.stringify(apptItems));}
-    if(data.cities){savedCities=data.cities;localStorage.setItem('dc_cities',JSON.stringify(savedCities));}
-    if(data.defaultCity){defaultCity=data.defaultCity;localStorage.setItem('dc_default_city',defaultCity);}
-    if(data.lang){lang=data.lang;localStorage.setItem('dc_lang',lang);}
-    if(data.water){Object.entries(data.water).forEach(([k,v])=>localStorage.setItem('dc_water_'+k,v));waterCount=parseInt(localStorage.getItem(todayKey())||'0');}
-    closeSync();toast(t('imported'));
-    updateAllUI();renderWater();
-    // Clean URL after import
-    if(window.history&&window.history.replaceState){
-      window.history.replaceState({},'',window.location.pathname);
-    }
-  }catch{toast(t('importErr'));}
-}
-
-// Auto-import if ?sync= param present in URL
-function checkURLSync(){
-  const params=new URLSearchParams(window.location.search);
-  const code=params.get('sync');
-  if(code){
-    // Small delay so page finishes rendering first
-    setTimeout(()=>{
-      applyImport(decodeURIComponent(code));
-    },600);
-  }
-}
-
-// Close modal on background click
-$('sync-modal').addEventListener('click',e=>{if(e.target===$('sync-modal'))closeSync();});
 
 /* ═══════════════════════════════════════════
    PDF / PRINT
