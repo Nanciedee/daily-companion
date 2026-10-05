@@ -91,6 +91,19 @@ header{position:sticky;top:0;z-index:40;backdrop-filter:blur(18px);-webkit-backd
 .w-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center;font-size:11px;padding-top:9px;margin-top:7px;border-top:1px solid var(--border)}
 .wsl{color:var(--muted);margin-bottom:2px}.wsv{color:var(--text);font-weight:500}
 
+ /* ── Moon ── */
+.moon-phase-display{display:flex;align-items:center;gap:18px}
+.moon-emoji{font-size:56px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.15))}
+.moon-info{display:flex;flex-direction:column;gap:4px}
+.moon-phase-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--text)}
+.moon-pct{font-size:13px;color:var(--muted)}
+.moon-next{font-size:11px;color:var(--muted);margin-top:2px}
+.moon-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:4px}
+.moon-day{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px;border-radius:8px;transition:background .2s}
+.moon-day.today{background:rgba(138,154,134,.18)}
+.moon-day-num{font-size:9px;color:var(--muted)}
+.moon-day-icon{font-size:13px;line-height:1} 
+  
 /* Grocery */
 .ga-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);padding-bottom:6px}
 .gl{list-style:none;display:flex;flex-direction:column;gap:4px;max-height:195px;overflow-y:auto}
@@ -182,10 +195,8 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
     </div>
   </div>
   <div class="hdr-controls">
-    <button class="sync-btn" onclick="openSync()" title="Sync / Export" id="sync-btn-lbl">
-      <span class="sync-badge" id="sync-dot" style="display:none"></span>☁ Sync
-    </button>
-    <button class="dark-btn" id="theme-btn" onclick="toggleThemeManual()" title="Toggle dark mode">🌙</button>
+    <button class="icon-hdr-btn" onclick="openPDF()" id="btn-pdf-hdr">🖨️ <span id="lbl-pdf-btn">Print / PDF</span></button>
+    <button class="icon-hdr-btn" id="theme-btn" onclick="toggleThemeManual()">🌙</button>
     <div class="pill">
       <button class="pb on" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="pb" id="btn-fr" onclick="setLang('fr')">FR</button>
@@ -194,7 +205,6 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
 </div>
 </header>
 
-<!-- MAIN -->
 <div class="wrapper">
 
 <!-- HERO -->
@@ -221,8 +231,30 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
   </div>
 </div>
 
-<!-- ROW 2: Appointments + Meditation -->
-<div class="row r-am fu" style="animation-delay:.10s">
+<!-- ROW 2: Moon -->
+<div class="row r-moon fu" style="animation-delay:.08s">
+  <div class="card" id="moon-card">
+    <div class="ch"><span class="overline" id="lbl-moon-over">Moon phase</span><span class="ci">🌙</span></div>
+    <div class="moon-phase-display">
+      <div class="moon-emoji" id="moon-emoji">🌕</div>
+      <div class="moon-info">
+        <div class="moon-phase-name" id="moon-phase-name">Full Moon</div>
+        <div class="moon-pct" id="moon-pct">100% illuminated</div>
+        <div class="moon-next" id="moon-next"></div>
+      </div>
+    </div>
+    <div class="moon-calendar" id="moon-calendar"></div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="overline" id="lbl-psalm-over">Daily verse</span><span class="ci" style="color:var(--secondary)">📖</span></div>
+    <div class="serif" style="font-size:15px;color:var(--muted)" id="lbl-psalm-title">Psalm of the day</div>
+    <blockquote class="dq" style="font-size:18px;flex:1" id="psalm-text"></blockquote>
+    <div class="pr" id="psalm-ref"></div>
+  </div>
+</div>
+
+<!-- ROW 3: Appointments + Meditation -->
+<div class="row r-am fu" style="animation-delay:.12s">
   <div class="card">
     <div class="ch">
       <div><span class="overline" id="lbl-appt-over">Today's flow</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-appt-title">Appointments</div></div>
@@ -258,9 +290,9 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
   </div>
 </div>
 
-<!-- ROW 3: Grocery + Water + Psalm -->
-<div class="row r-bot fu" style="animation-delay:.15s">
-  <div class="card">
+<!-- ROW 4: Grocery + Water -->
+<div class="row" style="grid-template-columns:7fr 5fr;margin-bottom:13px" id="row-groc-water">
+  <div class="card fu" style="animation-delay:.16s">
     <div class="ch">
       <div><span class="overline" id="lbl-groc-over">Pantry</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-groc-title">Grocery list</div></div>
       <span class="ci">🧺</span>
@@ -272,7 +304,7 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
     <ul class="gl" id="groc-list"></ul>
     <div class="gf" id="groc-footer"></div>
   </div>
-  <div class="card">
+  <div class="card fu" style="animation-delay:.18s">
     <div class="ch">
       <div><span class="overline" id="lbl-water-over">Hydration</span><div class="serif" style="font-size:25px;margin-top:4px" id="lbl-water-title">Water intake</div></div>
       <span class="ci">💧</span>
@@ -288,15 +320,9 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
       <button class="ib" onclick="resetWater()" style="font-size:11px">↺ <span id="lbl-w-reset">Reset</span></button>
     </div>
   </div>
-  <div class="card">
-    <div class="ch"><span class="overline" id="lbl-psalm-over">Daily verse</span><span class="ci" style="color:var(--secondary)">📖</span></div>
-    <div class="serif" style="font-size:15px;color:var(--muted)" id="lbl-psalm-title">Psalm of the day</div>
-    <blockquote class="dq" style="font-size:17px;flex:1" id="psalm-text"></blockquote>
-    <div class="pr" id="psalm-ref"></div>
-  </div>
 </div>
 
-<!-- ROW 4: Charts -->
+<!-- ROW 5: Charts -->
 <div class="row r-charts fu" style="animation-delay:.20s">
   <div class="card">
     <div class="ch"><span class="overline" id="lbl-water-chart">Water — 7 days</span><span class="ci">📊</span></div>
@@ -308,8 +334,8 @@ bq.dq{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.45;
   </div>
 </div>
 
-<!-- ROW 5: Links -->
-<div class="row r-links fu" style="animation-delay:.25s">
+<!-- ROW 6: Links -->
+<div class="row fu" style="animation-delay:.24s">
   <div class="card">
     <div class="ch"><span class="overline" id="lbl-links-title">My Pages</span><span class="ci">🔗</span></div>
     <div class="links-grid" id="links-grid"></div>
