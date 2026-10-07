@@ -1067,13 +1067,87 @@ function doPrint(){
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400&display=swap" rel="stylesheet"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:${bodyFont};background:${bgColor};color:#2C3329;padding:28px 32px;font-size:14px;font-weight:300}
-    h1{font-family:${headFont};font-size:32px;font-weight:400;color:#2C3329;margin-bottom:4px}
-    .date{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#888;margin-bottom:22px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .pc{background:${cardBg};border:${border};border-radius:14px;padding:16px;break-inside:avoid}
-    .po{font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:#888;margin-bottom:8px}
-    @media print{body{padding:14px 18px}@page{margin:1.2cm}}
+
+    html,body{
+      height:auto;
+      min-height:0;
+      overflow:visible;
+    }
+
+    body{
+      font-family:${bodyFont};
+      background:${bgColor};
+      color:#2C3329;
+      padding:28px 32px;
+      font-size:14px;
+      font-weight:300;
+    }
+
+    h1{
+      font-family:${headFont};
+      font-size:32px;
+      font-weight:400;
+      color:#2C3329;
+      margin-bottom:4px;
+    }
+
+    .date{
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#888;
+      margin-bottom:22px;
+    }
+
+    /* Two columns on screen */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    .pc{
+      background:${cardBg};
+      border:${border};
+      border-radius:14px;
+      padding:16px;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+
+    .po{
+      font-size:9px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      font-weight:500;
+      color:#888;
+      margin-bottom:8px;
+    }
+
+    @media print{
+      @page{
+        size:auto;
+        margin:1.2cm;
+      }
+
+      body{
+        padding:0;
+        background:#fff!important;
+        overflow:visible!important;
+      }
+
+      /* One column for reliable multi-page printing */
+      .grid{
+        display:block!important;
+      }
+
+      .pc{
+        margin-bottom:12px;
+        break-inside:avoid;
+        page-break-inside:avoid;
+      }
+    }
   </style></head><body>
   <h1>${T[lang].appTitle}</h1>
   <div class="date">${dateStr}</div>
@@ -1081,8 +1155,8 @@ function doPrint(){
   <script>window.onload=()=>setTimeout(()=>window.print(),400)<\/script>
   </body></html>`;
 
-  const win=window.open('','_blank','width=820,height=900');
-  if(win){win.document.write(html);win.document.close();}
+const win=window.open('','_blank','width=820,height=900');
+if(win){win.document.write(html);win.document.close();}
 }
 
 /* ═══════════════════════════════════════════
